@@ -1566,11 +1566,11 @@ const STAGE_CATALOG={
  5:{origId:5,icon:'👆',art:'dolphin',zoneNum:3,defaultMax:10,passRate:0.6,
   zone:'โซนเปิดโลกใต้ทะเล',zone_en:'Underwater World Zone',
   name:'จริงหรือมั่ว ชัวร์หรือไม่',name_en:'Ocean Fact or Myth?',
-  desc:'ปัดการ์ดซ้าย-ขวา ข้อละ 8 วิ พิสูจน์ความเข้าใจผิดเรื่องทะเล',desc_en:'Swipe Left (Myth) or Right (Fact) within 8s on ocean & shark trivia'},
+  desc:'ปัดการ์ดซ้าย-ขวา ข้อละ 11 วิ พิสูจน์ความเข้าใจผิดเรื่องทะเล',desc_en:'Swipe Left (Myth) or Right (Fact) within 11s on ocean & shark trivia'},
  6:{origId:6,icon:'⏳',art:'clownfish',zoneNum:4,defaultMax:10,passRate:0.6,
   zone:'โซนพิพิธภัณฑ์ & บ่อสัมผัส',zone_en:'Museum & Touch Pool Zone',
-  name:'ท้าความไว 5 วิ! ใช่ปลาหรือไม่',name_en:'5-Sec Speed Quiz: Fish or Not?',
-  desc:'แข่งกับนาฬิกาทรายข้อละ 5 วิ! ปัดขวา=จริง ปัดซ้าย=เท็จ',desc_en:'Beat the 5s hourglass! Swipe Right = True Fish, Left = Not a Fish'},
+  name:'ท้าความไว 8 วิ! ใช่ปลาหรือไม่',name_en:'8-Sec Speed Quiz: Fish or Not?',
+  desc:'แข่งกับนาฬิกาทรายข้อละ 8 วิ! ปัดขวา=จริง ปัดซ้าย=เท็จ',desc_en:'Beat the 8s hourglass! Swipe Right = True Fish, Left = Not a Fish'},
  7:{origId:7,icon:'🐢',art:'turtleside',zoneNum:5,defaultMax:10,passRate:0.5,
   zone:'โซนบ่อเต่าทะเล & อนุรักษ์ทะเล',zone_en:'Sea Turtle & Conservation Zone',
   name:'กู้ภัยเต่าทะเล & ชุมชนไร้ขยะ',name_en:'Sea Turtle Rescue & Zero-Waste',
@@ -1645,7 +1645,8 @@ function addStageCountdown(initialSec,onTick,onEnd,canTick){
   G.timers.push(iv);
   return iv;
 }
-const S5_TIME=8000; /* เวลาต่อข้อของด่าน 5 (มิลลิวินาที) */
+const S5_TIME=11000; /* เวลาต่อข้อของด่าน 5 (มิลลิวินาที) */
+const S6_TIME=8000; /* เวลาต่อข้อของด่าน 6 (มิลลิวินาที) */
 /* เวลาแสดงเฉลย = 2.5 วิ + 0.04 วิ/ตัวอักษร (ขั้นต่ำ 5 วิ สูงสุด 8 วิ) */
 function revealMs(text){return Math.max(5000,Math.min(8000,2500+40*String(text||'').length))}
 /* เปลี่ยนท้ายการ์ดเป็นปุ่ม "ข้อต่อไป" มีแถบเวลา เด้งอัตโนมัติ (หยุดเมื่อ pause และอิงเวลาจริง) */
@@ -3876,8 +3877,8 @@ const MYTHS=[
 
 function game5(id){
   intro(id,()=>L(
-    `👆 อ่านข้อความบนการ์ด แล้วใช้นิ้ว <b>ปัดการ์ดไปทางซ้าย (⬅️ ❌ มั่ว)</b> หรือ <b>ปัดไปทางขวา (✅ จริงชัวร์ ➡️)</b>!<br><small>⏳ มีเวลาข้อละ 8 วินาที หมดเวลานับว่าผิด<br>🎯 ต้องตอบถูกอย่างน้อย 60% (5 จาก 7 ข้อ) จึงจะผ่านด่าน</small>`,
-    `👆 Read each statement and <b>Swipe Left (⬅️ ❌ MYTH)</b> or <b>Swipe Right (✅ FACT ➡️)</b>!<br><small>⏳ 8 seconds per question — time out counts as wrong.<br>🎯 You need at least 60% correct (5 of 7) to pass.</small>`
+    `👆 อ่านข้อความบนการ์ด แล้วใช้นิ้ว <b>ปัดการ์ดไปทางซ้าย (⬅️ ❌ มั่ว)</b> หรือ <b>ปัดไปทางขวา (✅ จริงชัวร์ ➡️)</b>!<br><small>⏳ มีเวลาข้อละ 11 วินาที หมดเวลานับว่าผิด<br>🎯 ต้องตอบถูกอย่างน้อย 60% (5 จาก 7 ข้อ) จึงจะผ่านด่าน</small>`,
+    `👆 Read each statement and <b>Swipe Left (⬅️ ❌ MYTH)</b> or <b>Swipe Right (✅ FACT ➡️)</b>!<br><small>⏳ 11 seconds per question — time out counts as wrong.<br>🎯 You need at least 60% correct (5 of 7) to pass.</small>`
   ),()=>{
     stageBgm(BGM.s5);const deck=shuffled(MYTHS);let idx=0,score=0,history=[],curAns=null,qTimer=null;
     function showCard(){
@@ -4072,8 +4073,8 @@ const FISH_QUIZ=[
 
 function game6(id){
   intro(id,()=>L(
-    `⏳ <b>ท้าความไวข้อละ 5 วินาที!</b> ดูรูปและชื่อสัตว์น้ำ แล้วใช้นิ้วปัดการ์ดก่อนเวลาหมด!<br>⬅️ <b>ปัดซ้าย = เท็จ (ไม่ใช่ปลา 🚫)</b><br>➡️ <b>ปัดขวา = จริง (เป็นปลาแท้ 🐟)</b><br><small>🎯 ต้องตอบถูกอย่างน้อย 60% (6 จาก 10 ข้อ) จึงจะผ่านด่าน</small>`,
-    `⏳ <b>5-Second Speed Challenge!</b> Check each marine animal and swipe before the hourglass runs out!<br>⬅️ <b>Swipe Left = NOT a Fish 🚫</b><br>➡️ <b>Swipe Right = TRUE Fish 🐟</b><br><small>🎯 You need at least 60% correct (6 of 10) to pass.</small>`
+    `⏳ <b>ท้าความไวข้อละ 8 วินาที!</b> ดูรูปและชื่อสัตว์น้ำ แล้วใช้นิ้วปัดการ์ดก่อนเวลาหมด!<br>⬅️ <b>ปัดซ้าย = เท็จ (ไม่ใช่ปลา 🚫)</b><br>➡️ <b>ปัดขวา = จริง (เป็นปลาแท้ 🐟)</b><br><small>🎯 ต้องตอบถูกอย่างน้อย 60% (6 จาก 10 ข้อ) จึงจะผ่านด่าน</small>`,
+    `⏳ <b>8-Second Speed Challenge!</b> Check each marine animal and swipe before the hourglass runs out!<br>⬅️ <b>Swipe Left = NOT a Fish 🚫</b><br>➡️ <b>Swipe Right = TRUE Fish 🐟</b><br><small>🎯 You need at least 60% correct (6 of 10) to pass.</small>`
   ),()=>{
     stageBgm(BGM.s6);const deck=shuffled(FISH_QUIZ);let idx=0,score=0,history=[],qTimer=null;
 
@@ -4094,7 +4095,7 @@ function game6(id){
         return;
       }
       const a=deck[idx];
-      let remainMs=5000, answered=false, lastOk=false;
+      let remainMs=S6_TIME, answered=false, lastOk=false;
 
       root().innerHTML=`
         <div class="hud"><b id="s6QNum">🐟 ${L(`ข้อที่ ${idx+1}/${deck.length}`,`Q ${idx+1}/${deck.length}`)}</b><b id="s6ScLbl">✅ ${L(`ตอบถูก ${score}/${deck.length}`,`Score ${score}/${deck.length}`)}</b>${pauseControlsHTML()}</div>
@@ -4102,7 +4103,7 @@ function game6(id){
         <div class="hg-wrap" id="hgBox">
           <span class="hg-icon" id="hgIcon">⏳</span>
           <div class="hg-bar-bg"><div class="hg-bar-fill" id="hgFill" style="width:100%"></div></div>
-          <span class="hg-sec" id="hgSec">5.0s</span>
+          <span class="hg-sec" id="hgSec">${(S6_TIME/1000).toFixed(1)}s</span>
         </div>
 
         <div class="swipe-stage-full">
@@ -4134,7 +4135,7 @@ function game6(id){
       const hgFill=document.getElementById('hgFill');
       const hgSec=document.getElementById('hgSec');
       const hgIcon=document.getElementById('hgIcon');
-      let sx=0,dx=0,drag=false,lastTickSec=Math.ceil(5000/400),rv=null,lastQNow=performance.now();
+      let sx=0,dx=0,drag=false,lastTickSec=Math.ceil(S6_TIME/400),rv=null,lastQNow=performance.now();
 
       G.onLangChange=()=>{
         const el=(i)=>document.getElementById(i);
@@ -4167,7 +4168,7 @@ function game6(id){
         if(choseTrue===null){
           card.style.transform='';card.style.borderColor='';card.classList.add('fb-bad');
           bumpCombo(false);sfx.bad();
-          toast(L(`⌛ หมดเวลา 5 วินาที! (${aName} ${a.isFish?'เป็นปลาแท้':'ไม่ใช่ปลา'})`,`⌛ Time's up! (${aName}: ${a.isFish?'True Fish':'Not a Fish'})`));
+          toast(L(`⌛ หมดเวลา 8 วินาที! (${aName} ${a.isFish?'เป็นปลาแท้':'ไม่ใช่ปลา'})`,`⌛ Time's up! (${aName}: ${a.isFish?'True Fish':'Not a Fish'})`));
           history.push({a,ok:false,timeout:true});
         }else{
           ok=choseTrue===a.isFish;
@@ -4198,7 +4199,7 @@ function game6(id){
           submit(null);
           return;
         }
-        const pct=(remainMs/5000)*100;
+        const pct=(remainMs/S6_TIME)*100;
         const sec=(remainMs/1000).toFixed(1);
         if(hgFill) hgFill.style.width=pct+'%';
         if(hgSec) hgSec.textContent=sec+'s';

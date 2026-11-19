@@ -133,6 +133,12 @@
 }
 
 /* ===== Phase Upgrade (Items 2, 5, 6, 7, 8) ===== */
+/* 5. QR Scan Laser Line & Success Flash */
+.qr-scan-line{position:absolute;left:10%;right:10%;height:3px;background:linear-gradient(90deg,transparent,#3cc6d9,#a7f3d0,#3cc6d9,transparent);box-shadow:0 0 10px #3cc6d9;border-radius:3px;animation:qrLaserScan 2.2s ease-in-out infinite;pointer-events:none}
+@keyframes qrLaserScan{0%,100%{top:18%}50%{top:80%}}
+.qr-scan-wrap.ok{border-color:#2ec4a6!important;box-shadow:0 0 0 4px rgba(46,196,166,.45),0 8px 20px rgba(6,42,74,.28)!important}
+.qr-scan-wrap.ok .qr-reticle{border-color:#2ec4a6;border-style:solid}
+
 /* 6. Progress Shimmer & Certificate Ready Pulse */
 .progress i{position:relative;overflow:hidden}
 .progress i::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.38),transparent);transform:translateX(-100%);animation:progShimmer 2.8s ease-in-out infinite}
@@ -151,6 +157,7 @@ body.is-offline .offline-pill{display:block}
 @media (max-width:380px){
   .wrap{padding:calc(env(safe-area-inset-top,0px) + 6px) 8px calc(env(safe-area-inset-bottom,0px) + 8px)}
   .hud b{padding:4px 8px;font-size:.82rem}
+  .qr-btn-row{flex-direction:column;gap:6px}
   .fb-star{width:44px;height:44px;font-size:1.45rem}
   .playing-grid{gap:5px}
   .mcard .b .card-title{font-size:.68rem}
@@ -159,7 +166,7 @@ body.is-offline .offline-pill{display:block}
 }
 
 @media (prefers-reduced-motion:reduce){
-  .progress i::after,#certBtn:not(:disabled){animation:none!important}
+  .qr-scan-line,.progress i::after,#certBtn:not(:disabled){animation:none!important}
 }
 </style>
 <title>WAGHOR AQUA QUEST ภารกิจพิชิตโลกใต้น้ำ · พิพิธภัณฑ์สัตว์น้ำหว้ากอ</title>
@@ -5304,8 +5311,11 @@ window.addEventListener('beforeunload',e=>{
 });
 (function(){
   const ua=navigator.userAgent||'';
-  const isInApp=/Line\/|FBAN|FBAV|FB_IAB|Instagram|BytedanceWebview|Musical_ly|TikTok|MicroMessenger|Twitter|Snapchat|KAKAOTALK|Zalo/i.test(ua);
   const isIOS=/iPhone|iPad|iPod/i.test(ua);
+  const isIosWebView=isIOS && /AppleWebKit/i.test(ua) && !/Safari\//i.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS/i.test(ua);
+  const isAndroidWebView=/Android/i.test(ua) && /wv/i.test(ua);
+  const isKnownInApp=/Line\/|FBAN|FBAV|FB_IAB|Instagram|BytedanceWebview|Musical_ly|TikTok|MicroMessenger|Twitter|Snapchat|KAKAOTALK|Zalo|GSA\/|GoogleApp|Telegram|Discord|WhatsApp|Threads|Pinterest/i.test(ua);
+  const isInApp=isKnownInApp || isIosWebView || isAndroidWebView;
   window.renderInAppModal=function(){
     const t=document.getElementById('iabTitle');
     const d=document.getElementById('iabDesc');
@@ -5315,8 +5325,8 @@ window.addEventListener('beforeunload',e=>{
     if(!t||!d||!s||!cb||!xb) return;
     t.textContent=L('🌐 แนะนำให้เปิดผ่านเบราว์เซอร์หลัก','🌐 Open in Main Browser');
     d.textContent=L(
-      'คุณกำลังเปิดเกมผ่านแอปแชท ซึ่งอาจทำให้ข้อมูลด่านหายหรือบันทึกรูปเกียรติบัตรไม่ได้ แนะนำให้สลับไปเปิดในเบราว์เซอร์เริ่มต้น (เช่น Chrome หรือ Safari) ตามขั้นตอนนี้:',
-      'You are opening this game inside a chat app. To keep your progress saved and download your certificate smoothly, please open it in Safari or Chrome:'
+      'คุณกำลังเปิดเกมผ่านแอปแชทหรือตัวสแกน QR ซึ่งอาจทำให้หน้าจอแสดงผลไม่สมบูรณ์ ข้อมูลด่านหาย หรือบันทึกรูปเกียรติบัตรไม่ได้ แนะนำให้สลับไปเปิดใน Safari หรือ Chrome ตามขั้นตอนนี้:',
+      'You are opening this game inside a chat app or QR scanner. To ensure full UI display, saved progress, and certificate download, please open it in Safari or Chrome:'
     );
     s.innerHTML=isIOS
       ? L(

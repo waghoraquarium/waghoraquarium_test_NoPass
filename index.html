@@ -134,7 +134,6 @@
 
 /* ===== Phase Upgrade (Items 2, 5, 6, 7, 8) ===== */
 /* 5. QR Scan Laser Line & Success Flash */
-@keyframes qrLaserScan{0%,100%{top:18%}50%{top:80%}}
 /* 6. Progress Shimmer & Certificate Ready Pulse */
 .progress i{position:relative;overflow:hidden}
 .progress i::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.38),transparent);transform:translateX(-100%);animation:progShimmer 2.8s ease-in-out infinite}
@@ -153,6 +152,7 @@ body.is-offline .offline-pill{display:block}
 @media (max-width:380px){
   .wrap{padding:calc(env(safe-area-inset-top,0px) + 6px) 8px calc(env(safe-area-inset-bottom,0px) + 8px)}
   .hud b{padding:4px 8px;font-size:.82rem}
+  .qr-btn-row{flex-direction:column;gap:6px}
   .fb-star{width:44px;height:44px;font-size:1.45rem}
   .playing-grid{gap:5px}
   .mcard .b .card-title{font-size:.68rem}
@@ -161,7 +161,8 @@ body.is-offline .offline-pill{display:block}
 }
 
 @media (prefers-reduced-motion:reduce){
-  }
+  .qr-scan-line,.progress i::after,#certBtn:not(:disabled){animation:none!important}
+}
 </style>
 <title>WAGHOR AQUA QUEST ภารกิจพิชิตโลกใต้น้ำ · พิพิธภัณฑ์สัตว์น้ำหว้ากอ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -478,8 +479,10 @@ header.top{color:var(--deep)}header.top p{opacity:.7}
 .btn.gold{background:#fbe6ae;color:#7a5a00}.btn.ghost{background:#eef4f8;color:#4f6f88}
 .btn.coral{background:#f9c9c0;color:#8a3a2e}.btn.ok{background:#bfe9cf;color:#1f6b45}.btn.bad{background:#f7c0c8;color:#9b2c3d}
 .stage{box-shadow:0 4px 16px rgba(95,143,176,.12);border-left-width:5px}
-.stage.unlocked{border-left-color:#8cc3e3}.stage.passed{border-left-color:#a9e1bf}.badge{background:#f1f5f8;color:#7b8c9b}
-.passed .badge{background:#dff5e8;color:#2c7a52}.unlocked .badge{background:#e3f2fa;color:#3f7ea3}.progress{background:#e6f0f6}.progress i{background:linear-gradient(90deg,#b7e0ea,#a9e1bf)}
+.stage.unlocked{border-left-color:#8cc3e3}.stage.passed{border-left-color:#a9e1bf}
+.badge{background:#f1f5f8;color:#7b8c9b}
+.passed .badge{background:#dff5e8;color:#2c7a52}.unlocked .badge{background:#e3f2fa;color:#3f7ea3}
+.progress{background:#e6f0f6}.progress i{background:linear-gradient(90deg,#b7e0ea,#a9e1bf)}
 .modal{background:rgba(63,88,112,.35)}
 .hud{color:var(--deep)}.hud b{background:#fff;box-shadow:0 2px 8px rgba(95,143,176,.15)}
 .arena{background:linear-gradient(180deg,#dff3f8,#bfe3f0 60%,#a8d5ea);box-shadow:none;border:1px solid #d5e9f2}
@@ -510,7 +513,7 @@ header.top{color:var(--deep)}header.top p{opacity:.7}
 .start-wrap h1{margin:6px 0 0;font-size:clamp(2.4rem,min(10.5vw,9vh),4.4rem);line-height:1.2;color:var(--deep)}
 .start-wrap p{margin:0;font-size:clamp(1.15rem,4.2vw,1.6rem);color:var(--muted)}
 .start-dots{display:flex;gap:clamp(10px,2.5vw,16px);margin:6px 0}.start-dots i{width:clamp(14px,3.4vw,20px);height:clamp(14px,3.4vw,20px);border-radius:50%;background:#dbe8f0}.start-dots i.on{background:#a9e1bf}
-.start-wrap .btn{width:min(92vw,460px);font-size:clamp(1.3rem,5vw,1.7rem);padding:clamp(18px,3vh,26px) 20px;border-radius:24px;margin-top:10px;box-shadow:0 10px 26px rgba(95,143,176,.25)}
+.start-wrap .btn{width:min(100%,440px);margin-left:auto;margin-right:auto;font-size:clamp(1.3rem,5vw,1.7rem);padding:clamp(18px,3vh,26px) 20px;border-radius:24px;margin-top:10px;box-shadow:0 10px 26px rgba(95,143,176,.25)}
 #startInfo{font-size:clamp(1rem,3.6vw,1.2rem);color:var(--muted)}
 /* ===== โทนเข้มขึ้น (อ่านง่าย สบายตา) — ทับธีมพาสเทลด้านบน ===== */
 :root{--deep:#1d3a52;--ocean:#2d6d93;--sea:#2d7aa6;--aqua:#7fc0d8;--foam:#e3eff5;--sand:#f3e7cc;--coral:#e58a7a;--gold:#f0bf4a;--ok:#3a9f6a;--bad:#d1566a;--txt:#1f3547;--muted:#566e80}
@@ -523,8 +526,10 @@ header.top{color:var(--deep)}header.top p{opacity:.85}
 .btn.ghost{background:#e3eff5;color:#1d4a68;border:1px solid #b5cfdd}
 .btn.coral{background:#e58a7a;color:#3a1209}.btn.ok{background:#2f8a5a;color:#fff}.btn.bad{background:#c9485c;color:#fff}
 .stage{background:#fbfdfe;box-shadow:0 4px 14px rgba(29,58,82,.13)}
-.stage.unlocked{border-left-color:#2d7aa6}.stage.passed{border-left-color:#3a9f6a}.badge{background:#e6edf2;color:#4d6475}.passed .badge{background:#d3efdf;color:#17603d}
-.unlocked .badge{background:#d4e8f4;color:#1d5f87}.progress{background:#c5d9e4}.progress i{background:linear-gradient(90deg,#2d7aa6,#3a9f6a)}
+.stage.unlocked{border-left-color:#2d7aa6}.stage.passed{border-left-color:#3a9f6a}
+.badge{background:#e6edf2;color:#4d6475}.passed .badge{background:#d3efdf;color:#17603d}
+.unlocked .badge{background:#d4e8f4;color:#1d5f87}
+.progress{background:#c5d9e4}.progress i{background:linear-gradient(90deg,#2d7aa6,#3a9f6a)}
 .modal{background:rgba(20,40,60,.55)}
 .hud b{border:1px solid #c5d9e4}
 .arena{background:linear-gradient(180deg,#bfdcea,#8fc3dc 60%,#6fb0cf);border:1px solid #9cc7dc}
@@ -815,7 +820,7 @@ body.in-stage #s45App{padding-top:10px}
 .pause-lang-box .lang-btn{position:static;height:36px;box-shadow:0 2px 6px rgba(0,30,60,.15);border:1px solid #c5d9e4}
 .wrap{padding:calc(env(safe-area-inset-top, 0px) + 14px) 12px 24px}
 header.top{padding:26px 0 4px}
-#staffLogo{display:inline-flex;align-items:center;justify-content:center;}
+#staffLogo{display:inline-flex;align-items:center;justify-content:center}
 #staffLogo img{max-height:84px;width:auto;display:block;filter:drop-shadow(0 4px 10px rgba(0,20,40,.22))}
 .sdec.d1{top:calc(env(safe-area-inset-top, 0px) + 64px);left:6%}
 .sdec.d2{top:calc(env(safe-area-inset-top, 0px) + 68px);right:6%}
@@ -826,7 +831,7 @@ header.top{padding:26px 0 4px}
 .no-refresh-warn .nrw-ic{flex:0 0 auto;width:20px;height:20px;color:#158a70;opacity:.92}
 .no-refresh-warn .nrw-t{display:block;font-weight:600;font-size:.86rem;line-height:1.3;color:#0b3b3c}
 .no-refresh-warn .nrw-s{display:block;font-weight:400;font-size:.75rem;line-height:1.3;color:rgba(15,61,62,.84);margin-top:1px}
-.no-refresh-warn.start-banner{width:min(90vw,440px);background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-color:rgba(255,255,255,.65);border-left-color:#1f9d82;box-shadow:0 4px 14px rgba(0,15,35,.14);padding:7px 12px;margin:2px 0}
+.no-refresh-warn.start-banner{width:min(100%,440px);margin-left:auto;margin-right:auto;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-color:rgba(255,255,255,.65);border-left-color:#1f9d82;box-shadow:0 4px 14px rgba(0,15,35,.14);padding:7px 12px;margin:2px 0}
 .no-refresh-warn.start-banner .nrw-t{font-size:clamp(.86rem,3.2vw,.95rem)}
 .no-refresh-warn.compact{padding:6px 9px;margin:4px 0 7px}
 .no-refresh-warn.compact .nrw-t{font-size:.82rem}
@@ -1372,8 +1377,6 @@ body.in-stage[data-zone="5"]{background:linear-gradient(180deg,#f3e2a8 0%,#f5e8c
 
 </div>
 
-
-
 <!-- ===== โมดัลแจ้งเตือนเปิดผ่านเบราว์เซอร์หลัก (เฉพาะเมื่อเปิดจากแอปแชท) ===== -->
 <div class="modal" id="inAppBrowserModal" style="z-index:80"><div class="card" style="max-width:420px;text-align:left">
   <h3 id="iabTitle" style="margin:0 0 6px;text-align:center;color:var(--deep)">🌐 แนะนำให้เปิดผ่านเบราว์เซอร์หลัก</h3>
@@ -1803,7 +1806,7 @@ function load(){
             const scoreVal=Math.max(0,Math.min(maxVal,Number(savedSt.score)||0));
             const passedVal=Boolean(savedSt.passed)||passOK(s.id,scoreVal,maxVal);
             base.stages[s.id]={
-              unlocked:s.id===firstId?true:(Boolean(savedSt.unlocked)||passedVal||isPrevStagePassed(s.id)),
+              unlocked:s.id===firstId?true:(Boolean(savedSt.unlocked)||passedVal),
               passed:passedVal,
               score:scoreVal,
               max:maxVal
@@ -1811,6 +1814,12 @@ function load(){
           }
         });
         base.stages[firstId].unlocked=true;
+        STAGES_DATA.forEach((s,idx)=>{
+          if(idx+1<STAGES_DATA.length && base.stages[s.id] && base.stages[s.id].passed){
+            const nextId=STAGES_DATA[idx+1].id;
+            if(base.stages[nextId]) base.stages[nextId].unlocked=true;
+          }
+        });
         return base;
       }else{
         safeStorageRemove(KEY);
@@ -1837,7 +1846,6 @@ function checkSessionExpiry(){
     if((Date.now()-Number(S.updatedAt))>SESSION_TTL_MS){
       safeStorageRemove(KEY);
       S=createDefaultState();
-      staffAuthOk=false;
       curFbStar=0;
       const nmEl=document.getElementById('nmName');if(nmEl)nmEl.value='';
       const cmEl=document.getElementById('fbComment');if(cmEl)cmEl.value='';
@@ -1862,7 +1870,6 @@ function closeResetModal(){
 function confirmResetAll(){
   sfx.tap();
   document.getElementById('resetModal').classList.remove('show');
-  staffAuthOk=false;
   curFbStar=0;
   const nmEl=document.getElementById('nmName');if(nmEl)nmEl.value='';
   const cmEl=document.getElementById('fbComment');if(cmEl)cmEl.value='';
@@ -2095,15 +2102,12 @@ function applyStaticLang(){
   setTxt('fbBackMapBtn','← กลับแผนที่','← Back to Map');
   if(typeof updateFbStarLabel==='function') updateFbStarLabel();
 
-
-
   setTxt('nmTitle','ยินดีต้อนรับนักสำรวจ!','Welcome, Young Explorer!');
-  setHtml('nmDesc','ใส่ชื่อของคุณเพื่อเริ่มต้นสำรวจตั้งแต่ <b>โซนจากขุนเขาสู่สายน้ำ</b> และสะสมตราประทับครบ 7 ด่าน','Enter your name to begin exploring from the <b>Mountains to Rivers Zone</b> and collect all 7 stamps!');
+  setHtml('nmDesc','ใส่ชื่อของคุณเพื่อเริ่มต้นผจญภัย 7 ด่าน! <b>เล่นผ่านเกณฑ์แต่ละด่านเพื่อปลดล็อกด่านถัดไปอัตโนมัติ</b> และรับเกียรติบัตรเมื่อครบ 7 ด่าน','Enter your name to start the 7-stage adventure! <b>Pass each stage to automatically unlock the next stage</b> and earn your certificate!');
   const nn=document.getElementById('nmName');if(nn)nn.placeholder=L('ชื่อเล่น หรือ ชื่อ-นามสกุล','Nickname or Full Name');
   setTxt('nmSaveBtn','เริ่มผจญภัย 🌊','Start Adventure 🌊');
   setHtml('nmPdpaNote','🔒 <b>การคุ้มครองข้อมูลส่วนบุคคล (PDPA):</b> ข้อมูลชื่อ-นามสกุล หน่วยงาน และคะแนนของท่าน จะถูกนำไปใช้เพื่อออกเกียรติบัตรอิเล็กทรอนิกส์ และสรุปผลสถิติการให้บริการของพิพิธภัณฑ์สัตว์น้ำหว้ากอเท่านั้น','🔒 <b>Privacy Notice (PDPA):</b> Your name, organization, and score will be used solely to issue your electronic certificate and compile service statistics for Waghor Aquarium.');
   setHtml('fbPdpaNote','🔒 <b>การคุ้มครองข้อมูลส่วนบุคคล (PDPA):</b> ข้อมูลชื่อ-นามสกุล หน่วยงาน และคะแนนของท่าน จะถูกนำไปใช้เพื่อออกเกียรติบัตรอิเล็กทรอนิกส์ และสรุปผลสถิติการให้บริการของพิพิธภัณฑ์สัตว์น้ำหว้ากอเท่านั้น','🔒 <b>Privacy Notice (PDPA):</b> Your name, organization, and score will be used solely to issue your electronic certificate and compile service statistics for Waghor Aquarium.');
-
 
   setTxt('pauseTitle','พักการผจญภัยชั่วคราว','Adventure Paused');
   setTxt('pauseLangLbl','🌐 เปลี่ยนภาษา:','🌐 Language:');
@@ -2211,12 +2215,12 @@ function renderMap(){
     const prevPassed = isPrevStagePassed(s.id);
     tot+=st.score;
 
-    if(prevPassed && !st.unlocked){ st.unlocked=true; }
     let cls='locked', badge=L('🔒 ล็อก','🔒 Locked');
     if(st.passed){
       cls='passed';
       badge=`✅ ${st.score}/${st.max}`;
-    }else if(st.unlocked||prevPassed){
+    }else if(st.unlocked || prevPassed){
+      st.unlocked=true;
       cls='unlocked';
       badge=L('▶️ เล่นได้','▶️ Play');
     }
@@ -2233,13 +2237,12 @@ function renderMap(){
       <span class="badge">${badge}</span>
     `;
     el.onclick=()=>{
-      if(st.unlocked){
+      if(st.unlocked || prevPassed){
+        st.unlocked=true;
         startStage(s.id);
-      }else if(!prevPassed){
-        sfx.bad();
-        const reqId=getPrevStageId(s.id);toast(L(`ต้องผ่านด่านที่ ${reqId} ให้ได้ ${Math.round(stagePassRate(reqId)*100)}% ก่อน จึงจะปลดล็อกด่านที่ ${s.id} ได้นะ!`,`Pass Stage ${reqId} (at least ${Math.round(stagePassRate(reqId)*100)}%) first to unlock Stage ${s.id}!`));
       }else{
-        startStage(s.id);
+        sfx.bad();
+        const reqId=getPrevStageId(s.id);toast(L(`ต้องผ่านด่านที่ ${reqId} ให้ได้ ${Math.round(stagePassRate(reqId)*100)}% ก่อน ระบบจะปลดล็อกด่านที่ ${s.id} ให้อัตโนมัติ!`,`Pass Stage ${reqId} (at least ${Math.round(stagePassRate(reqId)*100)}%) first to automatically unlock Stage ${s.id}!`));
       }
     };
     Lst.appendChild(el);
@@ -2285,25 +2288,18 @@ function renderStart(){
   document.getElementById('startBtn').textContent=S.name?L('▶️ เล่นต่อ','▶️ Continue'):L('🌊 เริ่มผจญภัย','🌊 Start Adventure');
   document.getElementById('startInfo').textContent=S.name
     ? L(`สวัสดี ${S.name} · ผ่านแล้ว ${p}/7 ด่าน`,`Hi ${S.name} · Passed ${p}/7 stages`)
-    : L('เล่นผ่านครบ 7 ด่านเพื่อรับเกียรติบัตร','Complete all 7 stages to earn your certificate');
+    : L('เล่นผ่านแต่ละด่านเพื่อปลดล็อกด่านถัดไปอัตโนมัติ (ครบ 7 ด่านรับเกียรติบัตร)','Pass each stage to auto-unlock the next (Complete all 7 for your certificate)');
   const dc=document.getElementById('devCredit');
   if(dc) dc.textContent=L('พัฒนาโดย นราธิป ลีธีระ (นักวิชาการศึกษา) งานส่งเสริมวิชาการ และพัฒนาสื่อ กลุ่มพิพิธภัณฑ์สัตว์น้ำ','Developed by Narathip Leeteera (Education Officer)');
   if(typeof renderInAppModal==='function') renderInAppModal();
 }
 function enterApp(){sfx.tap();go('viewMap');askName()}
-function askName(){if(staffAuthOk)return;if(!S.name)document.getElementById('nameModal').classList.add('show')}
+function askName(){if(!S.name)document.getElementById('nameModal').classList.add('show')}
 function saveName(){
   const n=document.getElementById('nmName').value.trim();
   if(!n)return toast(L('กรุณาใส่ชื่อก่อนนะ','Please enter your name first'));
   S.name=n;save();document.getElementById('nameModal').classList.remove('show');renderMap();renderStart();
 }
-
-/* =========================================================================
-   6. ระบบปลดล็อกด่านด้วยรหัสผ่าน 4 หลัก (PIN)
-   ========================================================================= */
-
-
-
 
 /* =========================================================================
    8. ระบบลากวาง (Drag & Drop + แตะเลือกวาง)
@@ -2522,7 +2518,11 @@ function finishStage(id,score,max,factSummary,reviewList=[]){
   }
   const st=S.stages[id], pct=Math.round((score/max)*100), pass=passOK(id,score,max), reqPct=Math.round(stagePassRate(id)*100);
   if(score>st.score||!st.max){st.score=score;st.max=max}
-  if(pass){ st.passed=true; const _nxt=getNextStageId(id); if(_nxt && S.stages[_nxt]) S.stages[_nxt].unlocked=true; }
+  const nxt=getNextStageId(id);
+  if(pass){
+    st.passed=true;
+    if(nxt && S.stages[nxt]) S.stages[nxt].unlocked=true;
+  }
   save();
   pass?sfx.win():sfx.lose();
 
@@ -2539,9 +2539,7 @@ function finishStage(id,score,max,factSummary,reviewList=[]){
 
   let nextActionBtn = '';
   const idArg = typeof id==='string' ? `'${id}'` : id;
-  const nxt = getNextStageId(id);
   if(pass && nxt){
-    const nextUnlocked = S.stages[nxt]&&S.stages[nxt].unlocked;
     nextActionBtn = `<button class="btn gold full" style="margin-bottom:10px" onclick="startStage(${nxt})">${L(`▶️ ไปเล่นด่านที่ ${nxt} ต่อเลย!`,`▶️ Play Stage ${nxt} Now!`)}</button>`;
   }else if(pass && !nxt){
     nextActionBtn = `<button class="btn gold full" style="margin-bottom:10px" onclick="go('viewCert')">${L('🏅 ไปรับเกียรติบัตรนักสำรวจ!','🏅 Claim Explorer Certificate!')}</button>`;
@@ -5050,17 +5048,15 @@ async function downloadCertificatePNG(){
    ========================================================================= */
 const SURVEY_CONFIG={
   googleFormUrl:'https://docs.google.com/forms/d/e/1FAIpQLScxEZFPnf8WqMufdo02KUPU1KGzWLXPEEcqFM0GrkAUAtSVGg/viewform?usp=header',
-  // วาง URL ของ Google Apps Script Web App ที่นี่เพื่อให้ผู้เล่นทุกคนส่งข้อมูลเข้า Google Sheet เดียวกันทันที
-  sheetWebhookUrl:'https://script.google.com/macros/s/AKfycbw_sDZzp7wqtU-KOUS4JV4d4jKJmQ5fLNHQHwWmvxGqs02-gDTh94kCnqJz5AOM7dR6/exec',
-  // (ทางเลือก) วางลิงก์หน้าตาราง Google Sheet เพื่อให้ผู้ดูแลกดเปิดตารางจากหน้าสรุปผลได้ทันที
-  sheetViewUrl:'https://docs.google.com/spreadsheets/d/1oc_WGUb8bVB6uBBLKceGwNS31lrfnbzzZtdW0HI23O8/edit?gid=2043458521#gid=2043458521'
+  // วาง URL ของ Google Apps Script Web App ที่นี่เพื่อให้ผู้เล่นทุกคนส่งข้อมูลเข้า Google Sheet เดียวกันทันที (ส่งขาเดียว)
+  sheetWebhookUrl:'https://script.google.com/macros/s/AKfycbw_sDZzp7wqtU-KOUS4JV4d4jKJmQ5fLNHQHwWmvxGqs02-gDTh94kCnqJz5AOM7dR6/exec'
 };
 
 let curFbStar=0;
 let fbSubmitting=false;
 
 function getActiveWebhookUrl(){
-  return (SURVEY_CONFIG.sheetWebhookUrl || safeStorageGet('wk_admin_webhook_url') || '').trim();
+  return (SURVEY_CONFIG.sheetWebhookUrl || '').trim();
 }
 
 function getStarRatingLabel(v){
@@ -5211,7 +5207,7 @@ async function submitPlayerFeedback(){
     btn.textContent=L('⏳ กำลังบันทึกคะแนนและเปิดหน้าเกียรติบัตร...','⏳ Saving rating & opening certificate...');
   }
 
-  // บันทึกลงประวัติในเครื่องและคิวส่งข้อมูล เพื่อให้หน้ากราฟแสดงผลได้ทันทีแม้สคริปต์ฝั่ง Sheet ยังไม่ได้อัปเดตเวอร์ชัน
+  // เพิ่มเข้าคิวส่งข้อมูลเข้า Google Sheet ขาเดียว
   const q=fbReadQueue();q.push(entry);fbWriteQueue(q);
   fbPostEntry(entry).then(ok=>{
     if(ok){
@@ -5231,7 +5227,6 @@ async function submitPlayerFeedback(){
   toast(L('ขอบคุณสำหรับคะแนนความพึงพอใจครับ! เชิญรับเกียรติบัตรได้เลย 🏅','Thank you for rating! Here is your certificate 🏅'));
   go('viewCert');
 }
-
 
 /* ตราประทับกระแทกลงพาสปอร์ตเมื่อผ่านด่าน */
 (function(){
@@ -5311,7 +5306,6 @@ window.addEventListener('beforeunload',e=>{
     return '';
   }
 });
-
 (function(){
   /* ตรวจว่าเปิดนอกเบราว์เซอร์หลักหรือไม่ — เตือนเฉพาะเมื่อเจอหลักฐานจริง
      1) แอปแชท/WebView ที่ระบุได้ชัด  2) เก็บข้อมูลไม่ได้  3) กล้องใช้ไม่ได้ตอนกดสแกน
@@ -5428,19 +5422,6 @@ window.addEventListener('beforeunload',e=>{
   if(first) setTimeout(()=>showModal(first),350);
 })();
 
-try{
-  const qp=new URLSearchParams(location.search);
-  const qPin=(qp.get('pin')||qp.get('unlock')||'').trim();
-  if(/^\d{4}$/.test(qPin)){
-    const targetSt=STAGES_DATA.find(x=>x.code===qPin);
-    if(targetSt && isPrevStagePassed(targetSt.id)){
-      S.stages[targetSt.id].unlocked=true;
-      save();
-      history.replaceState(null,'',location.pathname);
-      setTimeout(()=>{go('viewMap');startStage(targetSt.id);},250);
-    }
-  }
-}catch(_){}
 </script>
 </body>
 </html>

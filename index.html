@@ -1395,9 +1395,10 @@ body.in-stage[data-zone="5"]{background:linear-gradient(180deg,#f3e2a8 0%,#f5e8c
   <h3 id="iabTitle" style="margin:0 0 6px;text-align:center;color:var(--deep)">🌐 แนะนำให้เปิดผ่านเบราว์เซอร์หลัก</h3>
   <p id="iabDesc" style="margin:0 0 12px;font-size:.94rem;color:var(--muted);line-height:1.55"></p>
   <div id="iabSteps" style="background:var(--foam);border:1px solid var(--aqua);border-radius:14px;padding:12px 14px;font-size:.9rem;line-height:1.6;color:var(--txt);margin-bottom:14px"></div>
-  <div class="row" style="gap:8px">
-    <button type="button" class="btn ghost" id="iabCopyBtn" onclick="copyGameUrl()" style="flex:1">📋 คัดลอกลิงก์</button>
-    <button type="button" class="btn" id="iabCloseBtn" onclick="closeInAppModal()" style="flex:1">เล่นต่อในหน้านี้</button>
+  <button type="button" class="btn full" id="iabOpenBtn" onclick="openInExternalBrowser()">🌐 เปิดในเบราว์เซอร์</button>
+  <div id="iabFallbackMsg" style="display:none;margin-top:8px;padding:8px 10px;border-radius:10px;background:#fff8e1;border:1px solid #f0bf4a;color:#6b4d00;font-size:.82rem;line-height:1.45;text-align:center"></div>
+  <div style="text-align:center;margin-top:8px">
+    <button type="button" id="iabCloseBtn" onclick="closeInAppModal()" style="background:none;border:0;box-shadow:none;padding:6px 12px;min-height:0;font-size:.86rem;color:var(--muted);text-decoration:underline;cursor:pointer;font-family:inherit">เล่นต่อในหน้านี้</button>
   </div>
 </div></div>
 
@@ -5343,9 +5344,9 @@ window.addEventListener('beforeunload',e=>{
     const t=document.getElementById('iabTitle');
     const d=document.getElementById('iabDesc');
     const s=document.getElementById('iabSteps');
-    const cb=document.getElementById('iabCopyBtn');
+    const ob=document.getElementById('iabOpenBtn');
     const xb=document.getElementById('iabCloseBtn');
-    if(!t||!d||!s||!cb||!xb) return;
+    if(!t||!d||!s||!ob||!xb) return;
     const TITLES={
       inapp:['🌐 แนะนำให้เปิดผ่านเบราว์เซอร์หลัก','🌐 Open in Main Browser'],
       manual:['🌐 วิธีเปิดเกมในเบราว์เซอร์หลัก','🌐 How to Open in Your Browser'],
@@ -5378,13 +5379,15 @@ window.addEventListener('beforeunload',e=>{
           '<strong>สำหรับ Android:</strong><br>1. แตะไอคอน <strong>จุดสามจุด (⋮)</strong> ที่มุมขวาบน<br>2. เลือก <strong>"เปิดใน Chrome"</strong> หรือ <strong>"เปิดด้วยเบราว์เซอร์เริ่มต้น"</strong><br>3. หรือกด <strong>คัดลอกลิงก์</strong> ด้านล่างแล้วนำไปวางในแอป Chrome',
           '<strong>For Android:</strong><br>1. Tap the <strong>⋮</strong> menu at the top-right<br>2. Choose <strong>"Open in Chrome"</strong> or <strong>"Open in browser"</strong><br>3. Or tap <strong>Copy Link</strong> below and paste it into Chrome'
         );
-    cb.textContent=L('📋 คัดลอกลิงก์','📋 Copy Link');
+    ob.textContent=L('🌐 เปิดในเบราว์เซอร์','🌐 Open in Browser');
     xb.textContent=(mode==='manual'||mode==='camera') ? L('ปิด','Close') : L('เล่นต่อในหน้านี้','Continue Here');
   };
 
   function showModal(m){
     mode=m;
     window.renderInAppModal();
+    const fb=document.getElementById('iabFallbackMsg');
+    if(fb){ fb.style.display='none'; fb.textContent=''; }
     const el=document.getElementById('inAppBrowserModal');
     if(el) el.classList.add('show');
   }
@@ -5403,12 +5406,55 @@ window.addEventListener('beforeunload',e=>{
     if(seenGet('camera')) return;
     showModal('camera');
   };
-  window.copyGameUrl=function(){
-    const url=window.location.href;
-    const done=()=>toast(L('คัดลอกลิงก์แล้ว! นำไปวางใน Safari หรือ Chrome ได้เลย','Link copied! Paste it into Safari or Chrome.'));
+  function copySilent(val, cb){
     if(navigator.clipboard&&navigator.clipboard.writeText){
-      navigator.clipboard.writeText(url).then(done).catch(()=>{fallbackCopy(url);done();});
-    }else{fallbackCopy(url);done();}
+      navigator.clipboard.writeText(val).then(()=>{if(cb)cb();}).catch(()=>{fallbackCopy(val);if(cb)cb();});
+    }else{fallbackCopy(val);if(cb)cb();}
+  }
+  window.copyGameUrl=function(){
+    copySilent(window.location.href, ()=>toast(L('คัดลอกลิงก์แล้ว! นำไปวางใน Safari หรือ Chrome ได้เลย','Link copied! Paste it into Safari or Chrome.')));
+  };
+  window.openInExternalBrowser=function(){
+    try{ sfx.tap(); }catch(_){}
+    const url=window.location.href;
+    const fb=document.getElementById('iabFallbackMsg');
+    const showFallback=()=>{
+      copySilent(url, ()=>{
+        const msg=isIOS
+          ? L('📋 คัดลอกลิงก์ให้อัตโนมัติแล้ว! แตะไอคอน 🧭 มุมล่างขวา หรือเปิดแอป Safari แล้ววางลิงก์ได้เลย','📋 Link copied! Tap 🧭 at the bottom-right or open Safari and paste the link.')
+          : L('📋 คัดลอกลิงก์ให้อัตโนมัติแล้ว! แตะเมนู ⋮ มุมขวาบนเลือก "เปิดใน Chrome" หรือนำไปวางใน Chrome ได้เลย','📋 Link copied! Tap ⋮ > "Open in Chrome" or paste the link in Chrome.');
+        if(fb){ fb.textContent=msg; fb.style.display='block'; }
+        toast(msg);
+      });
+    };
+    const isAndroid=/Android/i.test(ua);
+    if(isIOS){
+      let left=false;
+      const onHide=()=>{ if(document.hidden) left=true; };
+      document.addEventListener('visibilitychange', onHide, {once:true});
+      try{
+        window.location.href=url.replace(/^https?:\/\//i, 'x-safari-https://');
+      }catch(_){ showFallback(); return; }
+      setTimeout(()=>{
+        document.removeEventListener('visibilitychange', onHide);
+        if(!left && !document.hidden) showFallback();
+      }, 1000);
+    }else if(isAndroid){
+      let left=false;
+      const onHide=()=>{ if(document.hidden) left=true; };
+      document.addEventListener('visibilitychange', onHide, {once:true});
+      try{
+        const noScheme=url.replace(/^https?:\/\//i, '');
+        const scheme=/^http:\/\//i.test(url) ? 'http' : 'https';
+        window.location.href=`intent://\${noScheme}#Intent;scheme=\${scheme};package=com.android.chrome;S.browser_fallback_url=\${encodeURIComponent(url)};end`;
+      }catch(_){ showFallback(); return; }
+      setTimeout(()=>{
+        document.removeEventListener('visibilitychange', onHide);
+        if(!left && !document.hidden) showFallback();
+      }, 1200);
+    }else{
+      showFallback();
+    }
   };
   function fallbackCopy(val){
     const ta=document.createElement('textarea');

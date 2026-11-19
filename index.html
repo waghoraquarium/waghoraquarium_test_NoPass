@@ -1276,6 +1276,14 @@ body.in-stage[data-zone="5"]{background:linear-gradient(180deg,#f3e2a8 0%,#f5e8c
 @keyframes wakaShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px) rotate(-3deg)}40%{transform:translateX(8px) rotate(3deg)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
 @media (prefers-reduced-motion:reduce){.waka{animation:none}}
 </style>
+<style>
+/* Fix: prevent flex-shrink squishing #startBtn on mobile viewports */
+#viewStart.active .start-wrap > *{flex-shrink:0}
+#viewStart.active .start-wrap{justify-content:safe center;gap:clamp(6px,1.5vh,14px)}
+#viewStart.active .start-logo{width:clamp(120px,21vh,210px);height:clamp(120px,21vh,210px)}
+#viewStart.active #startBtn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:clamp(14px,2.2vh,20px) 20px;line-height:1.25;margin-top:4px;flex-shrink:0}
+#viewStart.active #startInfo{font-size:clamp(.88rem,3.3vw,1.05rem);line-height:1.4;padding:0 6px}
+</style>
 </head>
 <body>
 <div class="bubbles" id="bubbles"></div>

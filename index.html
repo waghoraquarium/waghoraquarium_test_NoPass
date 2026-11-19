@@ -14,7 +14,7 @@
 .view.active{animation:uiViewFade .40s ease-out}
 
 /* หน้าแรก (#viewStart) */
-#viewStart.active .start-wrap > *{animation:uiFloatUp .75s cubic-bezier(.22,1,.36,1) backwards}
+#viewStart.active .start-wrap > *:not(#startBtn){animation:uiFloatUp .75s cubic-bezier(.22,1,.36,1) backwards}
 #viewStart.active .start-wrap > *:nth-child(1){animation-delay:.06s}
 #viewStart.active .start-wrap > *:nth-child(2){animation-delay:.16s}
 #viewStart.active .start-wrap > *:nth-child(3){animation-delay:.26s}
@@ -24,7 +24,6 @@
 #viewStart.active .start-wrap > *:nth-child(7){animation-delay:.66s}
 #viewStart.active .start-wrap > *:nth-child(8){animation-delay:.76s}
 #viewStart.active .start-wrap > *:nth-child(9){animation-delay:.86s}
-#viewStart.active #startBtn{animation:uiFloatUp .75s cubic-bezier(.22,1,.36,1) .56s backwards,pulse 2s ease-in-out 1.4s infinite}
 
 /* หน้าแผนที่ (#viewMap) */
 #viewMap.active > header.top{animation:uiFloatUp .68s cubic-bezier(.22,1,.36,1) .06s backwards}
@@ -77,7 +76,7 @@
 .modal.show .card{animation:uiModalFloat .50s cubic-bezier(.22,1,.36,1)}
 
 @media (prefers-reduced-motion:reduce){
-  .view.active,#viewStart.active .start-wrap > *,#viewStart.active #startBtn,
+  .view.active,#viewStart.active .start-wrap > *:not(#startBtn),#startBtn,
   #viewMap.active > header.top,#viewMap.active > .card,
   #viewRate.active > .card,#viewRate.active > .card > *,
   #viewCert.active > .card,#viewCert.active > .card > *,

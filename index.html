@@ -5311,11 +5311,19 @@ window.addEventListener('beforeunload',e=>{
 });
 (function(){
   const ua=navigator.userAgent||'';
-  const isIOS=/iPhone|iPad|iPod/i.test(ua);
-  const isIosWebView=isIOS && /AppleWebKit/i.test(ua) && !/Safari\//i.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS/i.test(ua);
-  const isAndroidWebView=/Android/i.test(ua) && /wv/i.test(ua);
-  const isKnownInApp=/Line\/|FBAN|FBAV|FB_IAB|Instagram|BytedanceWebview|Musical_ly|TikTok|MicroMessenger|Twitter|Snapchat|KAKAOTALK|Zalo|GSA\/|GoogleApp|Telegram|Discord|WhatsApp|Threads|Pinterest/i.test(ua);
-  const isInApp=isKnownInApp || isIosWebView || isAndroidWebView;
+  const isIOS=/iPhone|iPad|iPod/i.test(ua) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+  const isIosWebView=isIOS && /AppleWebKit/i.test(ua) && (!/Safari\//i.test(ua) || !/Version\/[\d.]+/i.test(ua)) && !/CriOS|FxiOS|EdgiOS|OPiOS/i.test(ua);
+  const isAndroidWebView=/Android/i.test(ua) && (/;\s*wv\)/i.test(ua) || /\bwv\b/i.test(ua));
+  const isKnownInApp=/Line\/|FBAN|FBAV|FB_IAB|Instagram|BytedanceWebview|Musical_ly|TikTok|MicroMessenger|Twitter|Snapchat|KAKAOTALK|Zalo|GSA\/|GoogleApp|Telegram|Discord|WhatsApp|Threads|Pinterest|LinkedInApp|QQ\/|Weibo|QR|Scanner/i.test(ua);
+  let isEmbedded=false;
+  try{ isEmbedded = (window.self !== window.top); }catch(_){ isEmbedded=true; }
+  const isInApp = isKnownInApp || isIosWebView || isAndroidWebView || isEmbedded;
+  // หมายเหตุ: ตัวสแกนรหัส (Code Scanner) ใน iPhone ใช้ SFSafariViewController ซึ่งปลอม UA เหมือน Safari ทุกประการ
+  // จึงต้องแสดงหน้าต่างเตือนให้ตรวจสอบบน iPhone ในครั้งแรกที่เปิด (บันทึกการปิดไว้ใน sessionStorage ไม่ให้เด้งซ้ำ)
+  const isIosStandalone = Boolean(window.navigator && window.navigator.standalone);
+  const isIosOtherMainBrowser = isIOS && /CriOS|FxiOS|EdgiOS|OPiOS/i.test(ua);
+  const isIosNeedCheck = isIOS && !isInApp && !isIosStandalone && !isIosOtherMainBrowser;
+
   window.renderInAppModal=function(){
     const t=document.getElementById('iabTitle');
     const d=document.getElementById('iabDesc');
@@ -5324,23 +5332,31 @@ window.addEventListener('beforeunload',e=>{
     const xb=document.getElementById('iabCloseBtn');
     if(!t||!d||!s||!cb||!xb) return;
     t.textContent=L('🌐 แนะนำให้เปิดผ่านเบราว์เซอร์หลัก','🌐 Open in Main Browser');
-    d.textContent=L(
-      'คุณกำลังเปิดเกมผ่านแอปแชทหรือตัวสแกน QR ซึ่งอาจทำให้หน้าจอแสดงผลไม่สมบูรณ์ ข้อมูลด่านหาย หรือบันทึกรูปเกียรติบัตรไม่ได้ แนะนำให้สลับไปเปิดใน Safari หรือ Chrome ตามขั้นตอนนี้:',
-      'You are opening this game inside a chat app or QR scanner. To ensure full UI display, saved progress, and certificate download, please open it in Safari or Chrome:'
-    );
-    s.innerHTML=isIOS
+    d.textContent=isIosNeedCheck
       ? L(
-          '<strong>สำหรับ iPhone / iPad:</strong><br>1. แตะไอคอน <strong>จุดสามจุด (•••)</strong> หรือปุ่ม <strong>แชร์ (↑)</strong> ที่มุมจอ<br>2. เลือก <strong>"เปิดในเบราเซอร์"</strong> (Open in Safari)<br>3. หรือกด <strong>คัดลอกลิงก์</strong> ด้านล่างแล้วนำไปวางในแอป Safari',
-          '<strong>For iPhone / iPad:</strong><br>1. Tap the <strong>•••</strong> menu or <strong>Share (↑)</strong> icon<br>2. Choose <strong>"Open in Safari"</strong><br>3. Or tap <strong>Copy Link</strong> below and paste it into Safari'
+          'หากคุณสแกนผ่าน "ตัวสแกนรหัส" หรือแอปแชท (สังเกตจะมีปุ่ม "เสร็จสิ้น" ด้านบน) หน้าจอเกมและกล้องสแกนด่านอาจแสดงผลไม่สมบูรณ์ แนะนำให้เปิดในแอป Safari เต็มจอก่อนเล่นครับ:',
+          'If you opened this via iPhone Code Scanner or a chat app (you will see a "Done" button at top), please switch to full Safari for the best UI and camera scanner:'
         )
       : L(
-          '<strong>สำหรับ Android:</strong><br>1. แตะไอคอน <strong>จุดสามจุด (⋮)</strong><br>2. เลือก <strong>"เปิดใน Chrome"</strong> หรือ <strong>"เปิดด้วยเบราว์เซอร์เริ่มต้น"</strong><br>3. หรือกด <strong>คัดลอกลิงก์</strong> ด้านล่างแล้วนำไปวางในแอป Chrome',
+          'คุณกำลังเปิดเกมผ่านแอปแชทหรือตัวสแกน QR ซึ่งอาจทำให้หน้าจอแสดงผลไม่สมบูรณ์ กล้องสแกนไม่ทำงาน ข้อมูลด่านหาย หรือบันทึกรูปเกียรติบัตรไม่ได้ แนะนำให้เปิดใน Safari หรือ Chrome:',
+          'You are opening this game inside a chat app or QR scanner. To ensure full UI display, camera scanning, saved progress, and certificate download, please open it in Safari or Chrome:'
+        );
+    s.innerHTML=isIOS
+      ? L(
+          '<strong>สำหรับ iPhone / iPad:</strong><br>1. แตะไอคอน <strong>เข็มทิศ Safari (🧭)</strong> ที่มุมล่างขวา เพื่อสลับเข้าแอป Safari ทันที<br>2. หรือแตะ <strong>จุดสามจุด (•••)</strong> / ปุ่ม <strong>แชร์ (↑)</strong> แล้วเลือก <strong>"เปิดใน Safari"</strong><br>3. หรือกด <strong>คัดลอกลิงก์</strong> ด้านล่างแล้วนำไปวางในแอป Safari',
+          '<strong>For iPhone / iPad:</strong><br>1. Tap the <strong>Safari compass icon (🧭)</strong> at the bottom-right to open directly in Safari<br>2. Or tap <strong>•••</strong> / <strong>Share (↑)</strong> and choose <strong>"Open in Safari"</strong><br>3. Or tap <strong>Copy Link</strong> below and paste it into Safari'
+        )
+      : L(
+          '<strong>สำหรับ Android:</strong><br>1. แตะไอคอน <strong>จุดสามจุด (⋮)</strong> ที่มุมขวาบน<br>2. เลือก <strong>"เปิดใน Chrome"</strong> หรือ <strong>"เปิดด้วยเบราว์เซอร์เริ่มต้น"</strong><br>3. หรือกด <strong>คัดลอกลิงก์</strong> ด้านล่างแล้วนำไปวางในแอป Chrome',
           '<strong>For Android:</strong><br>1. Tap the <strong>⋮</strong> menu at the top-right<br>2. Choose <strong>"Open in Chrome"</strong> or <strong>"Open in browser"</strong><br>3. Or tap <strong>Copy Link</strong> below and paste it into Chrome'
         );
     cb.textContent=L('📋 คัดลอกลิงก์','📋 Copy Link');
-    xb.textContent=L('เล่นต่อในหน้านี้','Continue Here');
+    xb.textContent=isIosNeedCheck
+      ? L('✅ เปิดใน Safari อยู่แล้ว','✅ Already in Safari')
+      : L('เล่นต่อในหน้านี้','Continue Here');
   };
   window.closeInAppModal=function(){
+    try{ sessionStorage.setItem('wk_iab_seen','1'); }catch(_){}
     const m=document.getElementById('inAppBrowserModal');
     if(m) m.classList.remove('show');
   };
@@ -5359,7 +5375,10 @@ window.addEventListener('beforeunload',e=>{
     document.body.removeChild(ta);
   }
   renderInAppModal();
-  if(isInApp){
+  let alreadySeen=false;
+  try{ alreadySeen = sessionStorage.getItem('wk_iab_seen')==='1'; }catch(_){}
+  const shouldWarn = isInApp || (isIosNeedCheck && !alreadySeen && !(window.S && S.name));
+  if(shouldWarn){
     setTimeout(()=>{
       const m=document.getElementById('inAppBrowserModal');
       if(m) m.classList.add('show');

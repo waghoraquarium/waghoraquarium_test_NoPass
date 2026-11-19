@@ -167,13 +167,6 @@ body.is-offline .offline-pill{display:block}
 @media (prefers-reduced-motion:reduce){
   .qr-scan-line,.progress i::after,#certBtn:not(:disabled){animation:none!important}
 }
-
-/* Fix: prevent flex-shrink squishing #startBtn on mobile viewports */
-.start-wrap > *{flex-shrink:0}
-.start-wrap{justify-content:safe center;gap:clamp(6px,1.5vh,14px)}
-.start-logo{width:clamp(120px,21vh,210px);height:clamp(120px,21vh,210px)}
-.start-wrap .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:clamp(14px,2.2vh,20px) 20px;line-height:1.25;margin-top:4px}
-#startInfo{font-size:clamp(.88rem,3.3vw,1.05rem);line-height:1.4;padding:0 6px}
 </style>
 <title>WAGHOR AQUA QUEST ภารกิจพิชิตโลกใต้น้ำ · พิพิธภัณฑ์สัตว์น้ำหว้ากอ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">

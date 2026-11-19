@@ -87,6 +87,80 @@
   #gameRoot > .hud + .card,#gameRoot > .swipe-stage-full,#gameRoot .choice-chip,
   .modal.show,.modal.show .card{animation:none!important}
 }
+/* ===== Phase Upgrade (Items 1, 2, 4): Touch Targets, Low-Light Contrast & Living Motion ===== */
+/* 1. Touch & Responsive Safety */
+.btn,.choice-chip,.s45-seg button,.fb-star{touch-action:manipulation}
+#hudPauseBtn,#hudExitBtn,#s2HintBtn{min-height:38px!important;padding:6px 12px!important;font-size:.86rem!important}
+.choice-chip{min-height:52px}
+.stage{min-height:74px}
+.fact,.fact-item,.stage h3,.stage small,.card p{overflow-wrap:break-word;word-break:break-word}
+.modal .card{padding-bottom:calc(18px + env(safe-area-inset-bottom, 0px))}
+
+/* 2. Aquarium Low-Light Readability & Contrast */
+:root{--muted:#445c70;--txt:#152c3f}
+.stage.locked{opacity:.88}
+.stage.locked .badge{background:#dce6ee;color:#395062}
+.fact{background:#e7f4fa;border-left-width:6px;color:#152c3f}
+.fact-item{background:#eef8f2;border-left-width:5px;padding:11px 13px;box-shadow:0 2px 6px rgba(15,45,65,.06)}
+.fact-item.wrong{background:#fdf0f2}
+.fact-item b{font-size:.98rem;margin-bottom:3px}
+.pdpa-note{color:#3d5568;background:#e9f4fa}
+
+/* 4. Living Idle Motion (Mascot Waka & Marine Life) */
+@keyframes wakaBreathe{
+  0%,100%{transform:translateY(0) scale(1,1) rotate(-1.2deg)}
+  50%{transform:translateY(-6px) scale(1.025,.98) rotate(1.2deg)}
+}
+@keyframes wakaBlink{
+  0%,45%,49%,92%,96%,100%{filter:drop-shadow(0 4px 8px rgba(0,25,45,.22)) brightness(1)}
+  47%,94%{filter:drop-shadow(0 4px 8px rgba(0,25,45,.22)) brightness(.92)}
+}
+.waka:not(.shake){animation:wakaBreathe 3.8s ease-in-out infinite,wakaBlink 6.5s ease-in-out infinite}
+@keyframes mapIconSwim{
+  0%,100%{transform:translateY(0) rotate(-2deg)}
+  50%{transform:translateY(-4px) rotate(2.5deg)}
+}
+#viewMap #stageList .stage:not(.locked) .ic img{animation:mapIconSwim 3.4s ease-in-out infinite}
+#viewMap #stageList .stage:nth-child(2) .ic img{animation-delay:-.6s}
+#viewMap #stageList .stage:nth-child(3) .ic img{animation-delay:-1.2s}
+#viewMap #stageList .stage:nth-child(4) .ic img{animation-delay:-1.8s}
+#viewMap #stageList .stage:nth-child(5) .ic img{animation-delay:-2.4s}
+#viewMap #stageList .stage:nth-child(6) .ic img{animation-delay:-3.0s}
+#viewMap #stageList .stage:nth-child(7) .ic img{animation-delay:-.9s}
+
+@media (prefers-reduced-motion:reduce){
+  .waka:not(.shake),#viewMap #stageList .stage:not(.locked) .ic img{animation:none!important}
+}
+
+/* ===== Phase Upgrade (Items 2, 5, 6, 7, 8) ===== */
+/* 6. Progress Shimmer & Certificate Ready Pulse */
+.progress i{position:relative;overflow:hidden}
+.progress i::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.38),transparent);transform:translateX(-100%);animation:progShimmer 2.8s ease-in-out infinite}
+@keyframes progShimmer{0%{transform:translateX(-100%)}55%,100%{transform:translateX(120%)}}
+#certBtn:not(:disabled){animation:certReadyPulse 2s ease-in-out infinite;box-shadow:0 6px 18px rgba(240,191,74,.45)}
+@keyframes certReadyPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02);box-shadow:0 8px 22px rgba(240,191,74,.65)}}
+
+/* 7. Accessibility Focus Visible */
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,a:focus-visible,.stage:focus-visible{outline:3px solid #2d7aa6;outline-offset:2px}
+
+/* 8. Offline Status Banner */
+.offline-pill{display:none;position:fixed;bottom:calc(10px + env(safe-area-inset-bottom, 0px));left:50%;transform:translateX(-50%);z-index:70;background:rgba(29,58,82,.94);color:#fff;padding:7px 14px;border-radius:999px;font-family:Prompt,Sarabun,sans-serif;font-size:.78rem;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.28);white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis}
+body.is-offline .offline-pill{display:block}
+
+/* 2. Small / Narrow Screen Support (<= 380px) */
+@media (max-width:380px){
+  .wrap{padding:calc(env(safe-area-inset-top,0px) + 6px) 8px calc(env(safe-area-inset-bottom,0px) + 8px)}
+  .hud b{padding:4px 8px;font-size:.82rem}
+  .fb-star{width:44px;height:44px;font-size:1.45rem}
+  .playing-grid{gap:5px}
+  .mcard .b .card-title{font-size:.68rem}
+  #viewMap #stageList .stage{padding:9px 10px;gap:10px}
+  #viewMap #stageList .stage .ic{width:46px;height:46px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .progress i::after,#certBtn:not(:disabled){animation:none!important}
+}
 </style>
 <title>WAGHOR AQUA QUEST ภารกิจพิชิตโลกใต้น้ำ · พิพิธภัณฑ์สัตว์น้ำหว้ากอ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1343,7 +1417,8 @@ body.in-stage[data-zone="5"]{background:linear-gradient(180deg,#f3e2a8 0%,#f5e8c
     <button class="btn bad" id="rstConfirmBtn" onclick="confirmResetAll()">🗑️ ล้างข้อมูลเริ่มใหม่</button>
   </div>
 </div></div>
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="offline-pill" id="offlineBanner" role="status" aria-live="polite">📡 กำลังเล่นแบบออฟไลน์ · ความคืบหน้าจะบันทึกไว้ในเครื่อง</div>
 
 <script>
 let FISH_SPEED_LEVEL = 5.72;  // ความเร็วปลาด่าน 1 (เร่งความเร็วปลาทุกตัวเพิ่ม +30% จาก 4.4 เป็น 5.72)
@@ -2045,6 +2120,7 @@ function applyStaticLang(){
   setTxt('rstConfirmBtn','🗑️ ล้างข้อมูลเริ่มใหม่','🗑️ Reset All');
 
   syncSndNoteLang();
+  syncOfflineBanner();
 }
 
 let lastResultArgs=null;
@@ -2296,7 +2372,34 @@ function bindTouchDragDrop(containerEl, onDropPair){
    9. ระบบกลางของเกม & หน้าสรุปเฉลยความรู้ (เกณฑ์ผ่าน 50%)
    ========================================================================= */
 let G={timers:[],cleanups:[],raf:null,ended:false,paused:false,curStageId:1,combo:0,maxCombo:0,onLangChange:null};
+
+/* ===== Screen Wake Lock & Offline Status (Items 4 & 8) ===== */
+let _wakeLock=null;
+async function requestWakeLock(){
+  try{
+    if('wakeLock' in navigator && document.visibilityState==='visible' && !_wakeLock){
+      _wakeLock=await navigator.wakeLock.request('screen');
+      _wakeLock.addEventListener('release',()=>{_wakeLock=null;});
+    }
+  }catch(_){}
+}
+function releaseWakeLock(){
+  try{if(_wakeLock){_wakeLock.release();_wakeLock=null;}}catch(_){}
+}
+function syncOfflineBanner(){
+  const off=navigator.onLine===false;
+  document.body.classList.toggle('is-offline',off);
+  const el=document.getElementById('offlineBanner');
+  if(el) el.textContent=L('📡 กำลังเล่นแบบออฟไลน์ · ความคืบหน้าจะบันทึกไว้ในเครื่อง','📡 Offline mode · Progress is saved locally');
+}
+window.addEventListener('online',syncOfflineBanner);
+window.addEventListener('offline',syncOfflineBanner);
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='visible' && document.getElementById('viewGame').classList.contains('active')) requestWakeLock();
+});
+
 function stopGame(){
+  releaseWakeLock();
   G.timers.forEach(id=>{clearInterval(id);clearTimeout(id)});G.timers=[];
   if(G.cleanups){G.cleanups.forEach(fn=>{try{fn()}catch(e){}});G.cleanups=[]}
   cancelAnimationFrame(G.raf);G.paused=false;G.onLangChange=null;G.onPauseRender=null;
@@ -2370,6 +2473,7 @@ function startStage(id){
   document.body.dataset.zone=String((s&&s.zoneNum)||STAGE_ZONE[id]||1);
   if(S && typeof S==='object'){S.activeStageId=id;}
   stopGame();G.ended=false;G.paused=false;G.curStageId=id;G.combo=0;G.maxCombo=0;lastResultArgs=null;go('viewGame');
+  requestWakeLock();
   const origKey=(s&&s.origId)||id;
   const fn={1:game1,2:game2,3:game3,4:game4,5:game5,6:game6,7:game7}[origKey];
   if(fn) fn(id);

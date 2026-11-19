@@ -134,11 +134,7 @@
 
 /* ===== Phase Upgrade (Items 2, 5, 6, 7, 8) ===== */
 /* 5. QR Scan Laser Line & Success Flash */
-.qr-scan-line{position:absolute;left:10%;right:10%;height:3px;background:linear-gradient(90deg,transparent,#3cc6d9,#a7f3d0,#3cc6d9,transparent);box-shadow:0 0 10px #3cc6d9;border-radius:3px;animation:qrLaserScan 2.2s ease-in-out infinite;pointer-events:none}
 @keyframes qrLaserScan{0%,100%{top:18%}50%{top:80%}}
-.qr-scan-wrap.ok{border-color:#2ec4a6!important;box-shadow:0 0 0 4px rgba(46,196,166,.45),0 8px 20px rgba(6,42,74,.28)!important}
-.qr-scan-wrap.ok .qr-reticle{border-color:#2ec4a6;border-style:solid}
-
 /* 6. Progress Shimmer & Certificate Ready Pulse */
 .progress i{position:relative;overflow:hidden}
 .progress i::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.38),transparent);transform:translateX(-100%);animation:progShimmer 2.8s ease-in-out infinite}
@@ -157,7 +153,6 @@ body.is-offline .offline-pill{display:block}
 @media (max-width:380px){
   .wrap{padding:calc(env(safe-area-inset-top,0px) + 6px) 8px calc(env(safe-area-inset-bottom,0px) + 8px)}
   .hud b{padding:4px 8px;font-size:.82rem}
-  .qr-btn-row{flex-direction:column;gap:6px}
   .fb-star{width:44px;height:44px;font-size:1.45rem}
   .playing-grid{gap:5px}
   .mcard .b .card-title{font-size:.68rem}
@@ -166,8 +161,7 @@ body.is-offline .offline-pill{display:block}
 }
 
 @media (prefers-reduced-motion:reduce){
-  .qr-scan-line,.progress i::after,#certBtn:not(:disabled){animation:none!important}
-}
+  }
 </style>
 <title>WAGHOR AQUA QUEST ภารกิจพิชิตโลกใต้น้ำ · พิพิธภัณฑ์สัตว์น้ำหว้ากอ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -484,10 +478,8 @@ header.top{color:var(--deep)}header.top p{opacity:.7}
 .btn.gold{background:#fbe6ae;color:#7a5a00}.btn.ghost{background:#eef4f8;color:#4f6f88}
 .btn.coral{background:#f9c9c0;color:#8a3a2e}.btn.ok{background:#bfe9cf;color:#1f6b45}.btn.bad{background:#f7c0c8;color:#9b2c3d}
 .stage{box-shadow:0 4px 16px rgba(95,143,176,.12);border-left-width:5px}
-.stage.unlocked{border-left-color:#8cc3e3}.stage.passed{border-left-color:#a9e1bf}
-.badge{background:#f1f5f8;color:#7b8c9b}
-.passed .badge{background:#dff5e8;color:#2c7a52}.unlocked .badge{background:#e3f2fa;color:#3f7ea3}
-.progress{background:#e6f0f6}.progress i{background:linear-gradient(90deg,#b7e0ea,#a9e1bf)}
+.stage.unlocked{border-left-color:#8cc3e3}.stage.passed{border-left-color:#a9e1bf}.badge{background:#f1f5f8;color:#7b8c9b}
+.passed .badge{background:#dff5e8;color:#2c7a52}.unlocked .badge{background:#e3f2fa;color:#3f7ea3}.progress{background:#e6f0f6}.progress i{background:linear-gradient(90deg,#b7e0ea,#a9e1bf)}
 .modal{background:rgba(63,88,112,.35)}
 .hud{color:var(--deep)}.hud b{background:#fff;box-shadow:0 2px 8px rgba(95,143,176,.15)}
 .arena{background:linear-gradient(180deg,#dff3f8,#bfe3f0 60%,#a8d5ea);box-shadow:none;border:1px solid #d5e9f2}
@@ -531,10 +523,8 @@ header.top{color:var(--deep)}header.top p{opacity:.85}
 .btn.ghost{background:#e3eff5;color:#1d4a68;border:1px solid #b5cfdd}
 .btn.coral{background:#e58a7a;color:#3a1209}.btn.ok{background:#2f8a5a;color:#fff}.btn.bad{background:#c9485c;color:#fff}
 .stage{background:#fbfdfe;box-shadow:0 4px 14px rgba(29,58,82,.13)}
-.stage.unlocked{border-left-color:#2d7aa6}.stage.passed{border-left-color:#3a9f6a}
-.badge{background:#e6edf2;color:#4d6475}.passed .badge{background:#d3efdf;color:#17603d}
-.unlocked .badge{background:#d4e8f4;color:#1d5f87}
-.progress{background:#c5d9e4}.progress i{background:linear-gradient(90deg,#2d7aa6,#3a9f6a)}
+.stage.unlocked{border-left-color:#2d7aa6}.stage.passed{border-left-color:#3a9f6a}.badge{background:#e6edf2;color:#4d6475}.passed .badge{background:#d3efdf;color:#17603d}
+.unlocked .badge{background:#d4e8f4;color:#1d5f87}.progress{background:#c5d9e4}.progress i{background:linear-gradient(90deg,#2d7aa6,#3a9f6a)}
 .modal{background:rgba(20,40,60,.55)}
 .hud b{border:1px solid #c5d9e4}
 .arena{background:linear-gradient(180deg,#bfdcea,#8fc3dc 60%,#6fb0cf);border:1px solid #9cc7dc}
@@ -825,7 +815,7 @@ body.in-stage #s45App{padding-top:10px}
 .pause-lang-box .lang-btn{position:static;height:36px;box-shadow:0 2px 6px rgba(0,30,60,.15);border:1px solid #c5d9e4}
 .wrap{padding:calc(env(safe-area-inset-top, 0px) + 14px) 12px 24px}
 header.top{padding:26px 0 4px}
-#staffLogo{display:inline-flex;align-items:center;justify-content:center}
+#staffLogo{display:inline-flex;align-items:center;justify-content:center;}
 #staffLogo img{max-height:84px;width:auto;display:block;filter:drop-shadow(0 4px 10px rgba(0,20,40,.22))}
 .sdec.d1{top:calc(env(safe-area-inset-top, 0px) + 64px);left:6%}
 .sdec.d2{top:calc(env(safe-area-inset-top, 0px) + 68px);right:6%}
@@ -1306,6 +1296,7 @@ body.in-stage[data-zone="5"]{background:linear-gradient(180deg,#f3e2a8 0%,#f5e8c
     <div class="snd-note" id="sndNote"></div>
     <small id="startInfo"></small>
     <small id="devCredit" style="display:block;margin-top:2px;font-size:.76rem;opacity:.68;color:var(--muted);letter-spacing:0"></small>
+    <button type="button" id="iabHelpLinkStart" onclick="openInAppHelp()" style="display:block;margin:6px auto 0;background:none;border:0;box-shadow:none;width:auto;min-height:0;padding:6px 8px;font:inherit;font-size:.78rem;color:var(--muted);text-decoration:underline;opacity:.85;cursor:pointer;-webkit-tap-highlight-color:transparent"></button>
   </div>
 </section>
 
@@ -1381,8 +1372,10 @@ body.in-stage[data-zone="5"]{background:linear-gradient(180deg,#f3e2a8 0%,#f5e8c
 
 </div>
 
+
+
 <!-- ===== โมดัลแจ้งเตือนเปิดผ่านเบราว์เซอร์หลัก (เฉพาะเมื่อเปิดจากแอปแชท) ===== -->
-<div class="modal" id="inAppBrowserModal"><div class="card" style="max-width:420px;text-align:left">
+<div class="modal" id="inAppBrowserModal" style="z-index:80"><div class="card" style="max-width:420px;text-align:left">
   <h3 id="iabTitle" style="margin:0 0 6px;text-align:center;color:var(--deep)">🌐 แนะนำให้เปิดผ่านเบราว์เซอร์หลัก</h3>
   <p id="iabDesc" style="margin:0 0 12px;font-size:.94rem;color:var(--muted);line-height:1.55"></p>
   <div id="iabSteps" style="background:var(--foam);border:1px solid var(--aqua);border-radius:14px;padding:12px 14px;font-size:.9rem;line-height:1.6;color:var(--txt);margin-bottom:14px"></div>
@@ -1413,6 +1406,7 @@ body.in-stage[data-zone="5"]{background:linear-gradient(180deg,#f3e2a8 0%,#f5e8c
   <button class="btn ok full" id="pauseResumeBtn" onclick="resumeGame()" style="margin-bottom:8px">▶️ เล่นต่อจากเดิม</button>
   <button class="btn gold full" id="pauseRestartBtn" onclick="restartCurrentStage()" style="margin-bottom:8px">🔄 เริ่มด่านนี้ใหม่</button>
   <button class="btn ghost full" id="pauseExitBtn" onclick="closePauseAndExit()">🗺️ กลับหน้าแผนที่พาสปอร์ต</button>
+  <button type="button" id="iabHelpLinkPause" onclick="openInAppHelp()" style="display:block;margin:6px auto 0;background:none;border:0;box-shadow:none;width:auto;min-height:0;padding:6px 8px;font:inherit;font-size:.78rem;color:var(--muted);text-decoration:underline;opacity:.85;cursor:pointer;-webkit-tap-highlight-color:transparent"></button>
 </div></div>
 <!-- ===== โมดัลยืนยันล้างข้อมูล ===== -->
 <div class="modal" id="resetModal"><div class="card" style="text-align:center">
@@ -1809,7 +1803,7 @@ function load(){
             const scoreVal=Math.max(0,Math.min(maxVal,Number(savedSt.score)||0));
             const passedVal=Boolean(savedSt.passed)||passOK(s.id,scoreVal,maxVal);
             base.stages[s.id]={
-              unlocked:s.id===firstId?true:(Boolean(savedSt.unlocked)||passedVal),
+              unlocked:s.id===firstId?true:(Boolean(savedSt.unlocked)||passedVal||isPrevStagePassed(s.id)),
               passed:passedVal,
               score:scoreVal,
               max:maxVal
@@ -1817,12 +1811,6 @@ function load(){
           }
         });
         base.stages[firstId].unlocked=true;
-        STAGES_DATA.forEach((s,idx)=>{
-          if(idx+1<STAGES_DATA.length && base.stages[s.id] && base.stages[s.id].passed){
-            const nextId=STAGES_DATA[idx+1].id;
-            if(base.stages[nextId]) base.stages[nextId].unlocked=true;
-          }
-        });
         return base;
       }else{
         safeStorageRemove(KEY);
@@ -1849,6 +1837,7 @@ function checkSessionExpiry(){
     if((Date.now()-Number(S.updatedAt))>SESSION_TTL_MS){
       safeStorageRemove(KEY);
       S=createDefaultState();
+      staffAuthOk=false;
       curFbStar=0;
       const nmEl=document.getElementById('nmName');if(nmEl)nmEl.value='';
       const cmEl=document.getElementById('fbComment');if(cmEl)cmEl.value='';
@@ -1873,6 +1862,7 @@ function closeResetModal(){
 function confirmResetAll(){
   sfx.tap();
   document.getElementById('resetModal').classList.remove('show');
+  staffAuthOk=false;
   curFbStar=0;
   const nmEl=document.getElementById('nmName');if(nmEl)nmEl.value='';
   const cmEl=document.getElementById('fbComment');if(cmEl)cmEl.value='';
@@ -2105,12 +2095,15 @@ function applyStaticLang(){
   setTxt('fbBackMapBtn','← กลับแผนที่','← Back to Map');
   if(typeof updateFbStarLabel==='function') updateFbStarLabel();
 
+
+
   setTxt('nmTitle','ยินดีต้อนรับนักสำรวจ!','Welcome, Young Explorer!');
-  setHtml('nmDesc','ใส่ชื่อของคุณเพื่อเริ่มต้นผจญภัย 7 ด่าน! <b>เล่นผ่านเกณฑ์แต่ละด่านเพื่อปลดล็อกด่านถัดไปอัตโนมัติ</b> และรับเกียรติบัตรเมื่อครบ 7 ด่าน','Enter your name to start the 7-stage adventure! <b>Pass each stage to automatically unlock the next stage</b> and earn your certificate!');
+  setHtml('nmDesc','ใส่ชื่อของคุณเพื่อเริ่มต้นสำรวจตั้งแต่ <b>โซนจากขุนเขาสู่สายน้ำ</b> และสะสมตราประทับครบ 7 ด่าน','Enter your name to begin exploring from the <b>Mountains to Rivers Zone</b> and collect all 7 stamps!');
   const nn=document.getElementById('nmName');if(nn)nn.placeholder=L('ชื่อเล่น หรือ ชื่อ-นามสกุล','Nickname or Full Name');
   setTxt('nmSaveBtn','เริ่มผจญภัย 🌊','Start Adventure 🌊');
   setHtml('nmPdpaNote','🔒 <b>การคุ้มครองข้อมูลส่วนบุคคล (PDPA):</b> ข้อมูลชื่อ-นามสกุล หน่วยงาน และคะแนนของท่าน จะถูกนำไปใช้เพื่อออกเกียรติบัตรอิเล็กทรอนิกส์ และสรุปผลสถิติการให้บริการของพิพิธภัณฑ์สัตว์น้ำหว้ากอเท่านั้น','🔒 <b>Privacy Notice (PDPA):</b> Your name, organization, and score will be used solely to issue your electronic certificate and compile service statistics for Waghor Aquarium.');
   setHtml('fbPdpaNote','🔒 <b>การคุ้มครองข้อมูลส่วนบุคคล (PDPA):</b> ข้อมูลชื่อ-นามสกุล หน่วยงาน และคะแนนของท่าน จะถูกนำไปใช้เพื่อออกเกียรติบัตรอิเล็กทรอนิกส์ และสรุปผลสถิติการให้บริการของพิพิธภัณฑ์สัตว์น้ำหว้ากอเท่านั้น','🔒 <b>Privacy Notice (PDPA):</b> Your name, organization, and score will be used solely to issue your electronic certificate and compile service statistics for Waghor Aquarium.');
+
 
   setTxt('pauseTitle','พักการผจญภัยชั่วคราว','Adventure Paused');
   setTxt('pauseLangLbl','🌐 เปลี่ยนภาษา:','🌐 Language:');
@@ -2218,12 +2211,12 @@ function renderMap(){
     const prevPassed = isPrevStagePassed(s.id);
     tot+=st.score;
 
+    if(prevPassed && !st.unlocked){ st.unlocked=true; }
     let cls='locked', badge=L('🔒 ล็อก','🔒 Locked');
     if(st.passed){
       cls='passed';
       badge=`✅ ${st.score}/${st.max}`;
-    }else if(st.unlocked || prevPassed){
-      st.unlocked=true;
+    }else if(st.unlocked||prevPassed){
       cls='unlocked';
       badge=L('▶️ เล่นได้','▶️ Play');
     }
@@ -2240,12 +2233,13 @@ function renderMap(){
       <span class="badge">${badge}</span>
     `;
     el.onclick=()=>{
-      if(st.unlocked || prevPassed){
-        st.unlocked=true;
+      if(st.unlocked){
         startStage(s.id);
-      }else{
+      }else if(!prevPassed){
         sfx.bad();
-        const reqId=getPrevStageId(s.id);toast(L(`ต้องผ่านด่านที่ ${reqId} ให้ได้ ${Math.round(stagePassRate(reqId)*100)}% ก่อน ระบบจะปลดล็อกด่านที่ ${s.id} ให้อัตโนมัติ!`,`Pass Stage ${reqId} (at least ${Math.round(stagePassRate(reqId)*100)}%) first to automatically unlock Stage ${s.id}!`));
+        const reqId=getPrevStageId(s.id);toast(L(`ต้องผ่านด่านที่ ${reqId} ให้ได้ ${Math.round(stagePassRate(reqId)*100)}% ก่อน จึงจะปลดล็อกด่านที่ ${s.id} ได้นะ!`,`Pass Stage ${reqId} (at least ${Math.round(stagePassRate(reqId)*100)}%) first to unlock Stage ${s.id}!`));
+      }else{
+        startStage(s.id);
       }
     };
     Lst.appendChild(el);
@@ -2291,18 +2285,25 @@ function renderStart(){
   document.getElementById('startBtn').textContent=S.name?L('▶️ เล่นต่อ','▶️ Continue'):L('🌊 เริ่มผจญภัย','🌊 Start Adventure');
   document.getElementById('startInfo').textContent=S.name
     ? L(`สวัสดี ${S.name} · ผ่านแล้ว ${p}/7 ด่าน`,`Hi ${S.name} · Passed ${p}/7 stages`)
-    : L('เล่นผ่านแต่ละด่านเพื่อปลดล็อกด่านถัดไปอัตโนมัติ (ครบ 7 ด่านรับเกียรติบัตร)','Pass each stage to auto-unlock the next (Complete all 7 for your certificate)');
+    : L('เล่นผ่านครบ 7 ด่านเพื่อรับเกียรติบัตร','Complete all 7 stages to earn your certificate');
   const dc=document.getElementById('devCredit');
   if(dc) dc.textContent=L('พัฒนาโดย นราธิป ลีธีระ (นักวิชาการศึกษา) งานส่งเสริมวิชาการ และพัฒนาสื่อ กลุ่มพิพิธภัณฑ์สัตว์น้ำ','Developed by Narathip Leeteera (Education Officer)');
   if(typeof renderInAppModal==='function') renderInAppModal();
 }
 function enterApp(){sfx.tap();go('viewMap');askName()}
-function askName(){if(!S.name)document.getElementById('nameModal').classList.add('show')}
+function askName(){if(staffAuthOk)return;if(!S.name)document.getElementById('nameModal').classList.add('show')}
 function saveName(){
   const n=document.getElementById('nmName').value.trim();
   if(!n)return toast(L('กรุณาใส่ชื่อก่อนนะ','Please enter your name first'));
   S.name=n;save();document.getElementById('nameModal').classList.remove('show');renderMap();renderStart();
 }
+
+/* =========================================================================
+   6. ระบบปลดล็อกด่านด้วยรหัสผ่าน 4 หลัก (PIN)
+   ========================================================================= */
+
+
+
 
 /* =========================================================================
    8. ระบบลากวาง (Drag & Drop + แตะเลือกวาง)
@@ -2521,11 +2522,7 @@ function finishStage(id,score,max,factSummary,reviewList=[]){
   }
   const st=S.stages[id], pct=Math.round((score/max)*100), pass=passOK(id,score,max), reqPct=Math.round(stagePassRate(id)*100);
   if(score>st.score||!st.max){st.score=score;st.max=max}
-  const nxt=getNextStageId(id);
-  if(pass){
-    st.passed=true;
-    if(nxt && S.stages[nxt]) S.stages[nxt].unlocked=true;
-  }
+  if(pass){ st.passed=true; const _nxt=getNextStageId(id); if(_nxt && S.stages[_nxt]) S.stages[_nxt].unlocked=true; }
   save();
   pass?sfx.win():sfx.lose();
 
@@ -2542,7 +2539,9 @@ function finishStage(id,score,max,factSummary,reviewList=[]){
 
   let nextActionBtn = '';
   const idArg = typeof id==='string' ? `'${id}'` : id;
+  const nxt = getNextStageId(id);
   if(pass && nxt){
+    const nextUnlocked = S.stages[nxt]&&S.stages[nxt].unlocked;
     nextActionBtn = `<button class="btn gold full" style="margin-bottom:10px" onclick="startStage(${nxt})">${L(`▶️ ไปเล่นด่านที่ ${nxt} ต่อเลย!`,`▶️ Play Stage ${nxt} Now!`)}</button>`;
   }else if(pass && !nxt){
     nextActionBtn = `<button class="btn gold full" style="margin-bottom:10px" onclick="go('viewCert')">${L('🏅 ไปรับเกียรติบัตรนักสำรวจ!','🏅 Claim Explorer Certificate!')}</button>`;
@@ -5051,15 +5050,17 @@ async function downloadCertificatePNG(){
    ========================================================================= */
 const SURVEY_CONFIG={
   googleFormUrl:'https://docs.google.com/forms/d/e/1FAIpQLScxEZFPnf8WqMufdo02KUPU1KGzWLXPEEcqFM0GrkAUAtSVGg/viewform?usp=header',
-  // วาง URL ของ Google Apps Script Web App ที่นี่เพื่อให้ผู้เล่นทุกคนส่งข้อมูลเข้า Google Sheet เดียวกันทันที (ส่งขาเดียว)
-  sheetWebhookUrl:'https://script.google.com/macros/s/AKfycbw_sDZzp7wqtU-KOUS4JV4d4jKJmQ5fLNHQHwWmvxGqs02-gDTh94kCnqJz5AOM7dR6/exec'
+  // วาง URL ของ Google Apps Script Web App ที่นี่เพื่อให้ผู้เล่นทุกคนส่งข้อมูลเข้า Google Sheet เดียวกันทันที
+  sheetWebhookUrl:'https://script.google.com/macros/s/AKfycbw_sDZzp7wqtU-KOUS4JV4d4jKJmQ5fLNHQHwWmvxGqs02-gDTh94kCnqJz5AOM7dR6/exec',
+  // (ทางเลือก) วางลิงก์หน้าตาราง Google Sheet เพื่อให้ผู้ดูแลกดเปิดตารางจากหน้าสรุปผลได้ทันที
+  sheetViewUrl:'https://docs.google.com/spreadsheets/d/1oc_WGUb8bVB6uBBLKceGwNS31lrfnbzzZtdW0HI23O8/edit?gid=2043458521#gid=2043458521'
 };
 
 let curFbStar=0;
 let fbSubmitting=false;
 
 function getActiveWebhookUrl(){
-  return (SURVEY_CONFIG.sheetWebhookUrl || '').trim();
+  return (SURVEY_CONFIG.sheetWebhookUrl || safeStorageGet('wk_admin_webhook_url') || '').trim();
 }
 
 function getStarRatingLabel(v){
@@ -5210,7 +5211,7 @@ async function submitPlayerFeedback(){
     btn.textContent=L('⏳ กำลังบันทึกคะแนนและเปิดหน้าเกียรติบัตร...','⏳ Saving rating & opening certificate...');
   }
 
-  // เพิ่มเข้าคิวส่งข้อมูลเข้า Google Sheet ขาเดียว
+  // บันทึกลงประวัติในเครื่องและคิวส่งข้อมูล เพื่อให้หน้ากราฟแสดงผลได้ทันทีแม้สคริปต์ฝั่ง Sheet ยังไม่ได้อัปเดตเวอร์ชัน
   const q=fbReadQueue();q.push(entry);fbWriteQueue(q);
   fbPostEntry(entry).then(ok=>{
     if(ok){
@@ -5230,6 +5231,7 @@ async function submitPlayerFeedback(){
   toast(L('ขอบคุณสำหรับคะแนนความพึงพอใจครับ! เชิญรับเกียรติบัตรได้เลย 🏅','Thank you for rating! Here is your certificate 🏅'));
   go('viewCert');
 }
+
 
 /* ตราประทับกระแทกลงพาสปอร์ตเมื่อผ่านด่าน */
 (function(){
@@ -5309,38 +5311,67 @@ window.addEventListener('beforeunload',e=>{
     return '';
   }
 });
+
 (function(){
+  /* ตรวจว่าเปิดนอกเบราว์เซอร์หลักหรือไม่ — เตือนเฉพาะเมื่อเจอหลักฐานจริง
+     1) แอปแชท/WebView ที่ระบุได้ชัด  2) เก็บข้อมูลไม่ได้  3) กล้องใช้ไม่ได้ตอนกดสแกน
+     หมายเหตุ: ตัวสแกนรหัส iPhone ปลอม UA เป็น Safari จึงไม่เดาจาก UA ถ้าใช้งานได้ปกติจะไม่เตือน */
   const ua=navigator.userAgent||'';
   const isIOS=/iPhone|iPad|iPod/i.test(ua) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
   const isIosWebView=isIOS && /AppleWebKit/i.test(ua) && (!/Safari\//i.test(ua) || !/Version\/[\d.]+/i.test(ua)) && !/CriOS|FxiOS|EdgiOS|OPiOS/i.test(ua);
   const isAndroidWebView=/Android/i.test(ua) && (/;\s*wv\)/i.test(ua) || /\bwv\b/i.test(ua));
-  const isKnownInApp=/Line\/|FBAN|FBAV|FB_IAB|Instagram|BytedanceWebview|Musical_ly|TikTok|MicroMessenger|Twitter|Snapchat|KAKAOTALK|Zalo|GSA\/|GoogleApp|Telegram|Discord|WhatsApp|Threads|Pinterest|LinkedInApp|QQ\/|Weibo|QR|Scanner/i.test(ua);
+  const isKnownInApp=/Line\/|FBAN|FBAV|FB_IAB|Instagram|BytedanceWebview|Musical_ly|TikTok|MicroMessenger|Twitter|Snapchat|KAKAOTALK|Zalo|GSA\/|GoogleApp|Telegram|Discord|WhatsApp|Threads|Pinterest|LinkedInApp|QQ\/|Weibo/i.test(ua);
   let isEmbedded=false;
-  try{ isEmbedded = (window.self !== window.top); }catch(_){ isEmbedded=true; }
-  const isInApp = isKnownInApp || isIosWebView || isAndroidWebView || isEmbedded;
-  // หมายเหตุ: ตัวสแกนรหัส (Code Scanner) ใน iPhone ใช้ SFSafariViewController ซึ่งปลอม UA เหมือน Safari ทุกประการ
-  // จึงต้องแสดงหน้าต่างเตือนให้ตรวจสอบบน iPhone ในครั้งแรกที่เปิด (บันทึกการปิดไว้ใน sessionStorage ไม่ให้เด้งซ้ำ)
-  const isIosStandalone = Boolean(window.navigator && window.navigator.standalone);
-  const isIosOtherMainBrowser = isIOS && /CriOS|FxiOS|EdgiOS|OPiOS/i.test(ua);
-  const isIosNeedCheck = isIOS && !isInApp && !isIosStandalone && !isIosOtherMainBrowser;
+  try{ isEmbedded=(window.self!==window.top); }catch(_){ isEmbedded=true; }
+  const isInApp=isKnownInApp||isIosWebView||isAndroidWebView||isEmbedded;
+
+  let mode='inapp'; /* inapp | storage | camera | manual */
+  const seen={};
+  function seenGet(m){ if(seen[m]) return true; try{ return sessionStorage.getItem('wk_iab_seen_'+m)==='1'; }catch(_){ return false; } }
+  function seenSet(m){ seen[m]=true; try{ sessionStorage.setItem('wk_iab_seen_'+m,'1'); }catch(_){} }
+
+  function storageOk(){
+    try{
+      const k='wk_probe_'+Date.now();
+      localStorage.setItem(k,'1');
+      const ok=localStorage.getItem(k)==='1';
+      localStorage.removeItem(k);
+      return ok;
+    }catch(_){ return false; }
+  }
 
   window.renderInAppModal=function(){
+    const hl=L('ℹ️ เปิดเกมแล้วมีปัญหา? ดูวิธีเปิดใน Safari/Chrome','ℹ️ Game not working right? How to open in Safari/Chrome');
+    ['iabHelpLinkStart','iabHelpLinkPause'].forEach(id=>{const e=document.getElementById(id); if(e) e.textContent=hl;});
     const t=document.getElementById('iabTitle');
     const d=document.getElementById('iabDesc');
     const s=document.getElementById('iabSteps');
     const cb=document.getElementById('iabCopyBtn');
     const xb=document.getElementById('iabCloseBtn');
     if(!t||!d||!s||!cb||!xb) return;
-    t.textContent=L('🌐 แนะนำให้เปิดผ่านเบราว์เซอร์หลัก','🌐 Open in Main Browser');
-    d.textContent=isIosNeedCheck
-      ? L(
-          'หากคุณสแกนผ่าน "ตัวสแกนรหัส" หรือแอปแชท (สังเกตจะมีปุ่ม "เสร็จสิ้น" ด้านบน) หน้าจอเกมและกล้องสแกนด่านอาจแสดงผลไม่สมบูรณ์ แนะนำให้เปิดในแอป Safari เต็มจอก่อนเล่นครับ:',
-          'If you opened this via iPhone Code Scanner or a chat app (you will see a "Done" button at top), please switch to full Safari for the best UI and camera scanner:'
-        )
-      : L(
-          'คุณกำลังเปิดเกมผ่านแอปแชทหรือตัวสแกน QR ซึ่งอาจทำให้หน้าจอแสดงผลไม่สมบูรณ์ กล้องสแกนไม่ทำงาน ข้อมูลด่านหาย หรือบันทึกรูปเกียรติบัตรไม่ได้ แนะนำให้เปิดใน Safari หรือ Chrome:',
-          'You are opening this game inside a chat app or QR scanner. To ensure full UI display, camera scanning, saved progress, and certificate download, please open it in Safari or Chrome:'
-        );
+    const TITLES={
+      inapp:['🌐 แนะนำให้เปิดผ่านเบราว์เซอร์หลัก','🌐 Open in Main Browser'],
+      manual:['🌐 วิธีเปิดเกมในเบราว์เซอร์หลัก','🌐 How to Open in Your Browser'],
+      camera:['📷 กล้องใช้ไม่ได้ในหน้านี้','📷 Camera Unavailable Here'],
+      storage:['💾 บันทึกความคืบหน้าไม่ได้','💾 Cannot Save Progress']
+    };
+    const DESCS={
+      inapp:[
+        'คุณกำลังเปิดเกมผ่านแอปแชทหรือตัวสแกน QR ซึ่งอาจทำให้หน้าจอแสดงผลไม่สมบูรณ์ กล้องสแกนไม่ทำงาน ข้อมูลด่านหาย หรือบันทึกรูปเกียรติบัตรไม่ได้ แนะนำให้เปิดใน Safari หรือ Chrome:',
+        'You are opening this game inside a chat app or QR scanner. To ensure full UI display, camera scanning, saved progress, and certificate download, please open it in Safari or Chrome:'],
+      manual:[
+        'หากหน้าเกมแสดงผลไม่ปกติ กล้องสแกนไม่ทำงาน หรือเห็นปุ่ม "เสร็จสิ้น" ด้านบน (แปลว่าเปิดผ่านตัวสแกนรหัสหรือแอปแชท) แนะนำให้เปิดเกมใน Safari หรือ Chrome:',
+        'If the game looks odd, the camera does not work, or you see a "Done" button at the top (meaning it opened inside a code scanner or chat app), please open it in Safari or Chrome:'],
+      camera:[
+        'กล้องสแกนใช้ไม่ได้ในหน้านี้ (อาจเปิดผ่านตัวสแกนรหัสหรือแอปแชท) หากเพิ่งกดไม่อนุญาตกล้อง ให้อนุญาตกล้องให้เบราว์เซอร์ก่อน หรือเปิดเกมใน Safari / Chrome แล้วสแกนอีกครั้ง ระหว่างนี้ยังใช้ "ถ่ายรูปสแกน" หรือกรอกรหัส 4 หลักได้:',
+        'The live camera is not available here (you may be inside a code scanner or chat app). If you just denied camera access, allow it for your browser, or open the game in Safari / Chrome and scan again. You can still use "Snap QR Photo" or the 4-digit PIN:'],
+      storage:[
+        'หน้านี้บันทึกความคืบหน้าไม่ได้ (อาจเปิดผ่านตัวสแกนรหัส แอปแชท หรือโหมดส่วนตัว) ความคืบหน้าอาจหายเมื่อปิดหน้านี้ แนะนำให้เปิดใน Safari หรือ Chrome:',
+        'This page cannot save your progress (you may be in a code scanner, chat app, or private mode). Progress may be lost when you close it. Please open it in Safari or Chrome:']
+    };
+    const ti=TITLES[mode]||TITLES.inapp, de=DESCS[mode]||DESCS.inapp;
+    t.textContent=L(ti[0],ti[1]);
+    d.textContent=L(de[0],de[1]);
     s.innerHTML=isIOS
       ? L(
           '<strong>สำหรับ iPhone / iPad:</strong><br>1. แตะไอคอน <strong>เข็มทิศ Safari (🧭)</strong> ที่มุมล่างขวา เพื่อสลับเข้าแอป Safari ทันที<br>2. หรือแตะ <strong>จุดสามจุด (•••)</strong> / ปุ่ม <strong>แชร์ (↑)</strong> แล้วเลือก <strong>"เปิดใน Safari"</strong><br>3. หรือกด <strong>คัดลอกลิงก์</strong> ด้านล่างแล้วนำไปวางในแอป Safari',
@@ -5351,14 +5382,29 @@ window.addEventListener('beforeunload',e=>{
           '<strong>For Android:</strong><br>1. Tap the <strong>⋮</strong> menu at the top-right<br>2. Choose <strong>"Open in Chrome"</strong> or <strong>"Open in browser"</strong><br>3. Or tap <strong>Copy Link</strong> below and paste it into Chrome'
         );
     cb.textContent=L('📋 คัดลอกลิงก์','📋 Copy Link');
-    xb.textContent=isIosNeedCheck
-      ? L('✅ เปิดใน Safari อยู่แล้ว','✅ Already in Safari')
-      : L('เล่นต่อในหน้านี้','Continue Here');
+    xb.textContent=(mode==='manual'||mode==='camera') ? L('ปิด','Close') : L('เล่นต่อในหน้านี้','Continue Here');
   };
+
+  function showModal(m){
+    mode=m;
+    window.renderInAppModal();
+    const el=document.getElementById('inAppBrowserModal');
+    if(el) el.classList.add('show');
+  }
   window.closeInAppModal=function(){
-    try{ sessionStorage.setItem('wk_iab_seen','1'); }catch(_){}
+    seenSet(mode);
     const m=document.getElementById('inAppBrowserModal');
     if(m) m.classList.remove('show');
+  };
+  window.openInAppHelp=function(){
+    try{ sfx.tap(); }catch(_){}
+    showModal('manual');
+  };
+  /* เรียกจากตัวสแกน QR เมื่อกล้องเปิดไม่ได้ — เด้งครั้งเดียวต่อเซสชัน */
+  window.iabCameraProblem=function(name){
+    if(/^(NotFoundError|DevicesNotFoundError|NotReadableError|TrackStartError|AbortError|OverconstrainedError)$/.test(name||'')) return;
+    if(seenGet('camera')) return;
+    showModal('camera');
   };
   window.copyGameUrl=function(){
     const url=window.location.href;
@@ -5374,18 +5420,27 @@ window.addEventListener('beforeunload',e=>{
     try{document.execCommand('copy');}catch(e){}
     document.body.removeChild(ta);
   }
+
   renderInAppModal();
-  let alreadySeen=false;
-  try{ alreadySeen = sessionStorage.getItem('wk_iab_seen')==='1'; }catch(_){}
-  const shouldWarn = isInApp || (isIosNeedCheck && !alreadySeen && !(window.S && S.name));
-  if(shouldWarn){
-    setTimeout(()=>{
-      const m=document.getElementById('inAppBrowserModal');
-      if(m) m.classList.add('show');
-    }, 350);
-  }
+  let first=null;
+  if(isInApp){ if(!seenGet('inapp')) first='inapp'; }
+  else if(!storageOk() && !seenGet('storage')){ first='storage'; }
+  if(first) setTimeout(()=>showModal(first),350);
 })();
 
+try{
+  const qp=new URLSearchParams(location.search);
+  const qPin=(qp.get('pin')||qp.get('unlock')||'').trim();
+  if(/^\d{4}$/.test(qPin)){
+    const targetSt=STAGES_DATA.find(x=>x.code===qPin);
+    if(targetSt && isPrevStagePassed(targetSt.id)){
+      S.stages[targetSt.id].unlocked=true;
+      save();
+      history.replaceState(null,'',location.pathname);
+      setTimeout(()=>{go('viewMap');startStage(targetSt.id);},250);
+    }
+  }
+}catch(_){}
 </script>
 </body>
 </html>

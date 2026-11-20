@@ -173,6 +173,11 @@ body.is-offline .offline-pill{display:block}
 #ulScanBtn{min-height:54px;font-size:1.08rem;font-weight:800;padding:12px 16px;box-shadow:0 4px 0 rgba(18,90,54,.28),0 8px 18px rgba(47,138,90,.28)}
 #ulPhotoBtn{min-height:42px;font-size:.9rem;padding:8px 12px}
 .qr-or-lbl{margin:10px 0 6px;font-size:.78rem}
+
+/* ===== Start Screen Button & Credit Fix ===== */
+.start-wrap > *{flex-shrink:0}
+.start-wrap .btn,.no-refresh-warn.start-banner{width:min(100%,440px);margin-inline:auto}
+#viewStart #devCredit{color:rgba(255,255,255,.78)!important}
 </style>
 <title>WAGHOR AQUA QUEST ภารกิจพิชิตโลกใต้น้ำ · พิพิธภัณฑ์สัตว์น้ำหว้ากอ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1750,6 +1755,26 @@ function startReveal(gd,card,text,isLast,advance){
   return {refresh};
 }
 function medNote(){return '<div style="margin-top:10px;padding:8px 10px;border-radius:12px;background:#fff0f3;border:2px solid #ff5d73;color:#7a1b2b;font-size:.9rem">'+L('⚠️ <b>ไม่ใช่คำแนะนำทางการแพทย์</b> หากอาการรุนแรง โทร <b>1669</b> ทันที · ใช้น้ำอุ่นที่ทนได้ประมาณ 40–45°C ห้ามร้อนจนลวกผิว และพบแพทย์เสมอหากปวดมากหรือบวมลามขึ้น','⚠️ <b>Not medical advice.</b> For severe symptoms call <b>1669</b> (Thailand emergency medical services) immediately · Use only bearable warm water (about 40–45°C) to avoid scalding, and always see a doctor if pain is severe or swelling spreads.')+'</div>'}
+function createDefaultState(){
+  const st={}, firstId=STAGES_DATA[0].id;
+  STAGES_DATA.forEach(s=>{
+    st[s.id]={unlocked:s.id===firstId,passed:false,score:0,max:s.defaultMax||10};
+  });
+  const now=Date.now();
+  return {
+    version:10,
+    orderSig:STAGE_ORDER.join(','),
+    name:'',
+    school:'',
+    rated:false,
+    fbStar:0,
+    activeView:'viewStart',
+    activeStageId:firstId,
+    createdAt:now,
+    updatedAt:now,
+    stages:st
+  };
+}
 let sessionExpiredOnLoad=false;
 let S=load();
 function load(){
@@ -2512,7 +2537,6 @@ function finishStage(id,score,max,factSummary,reviewList=[]){
 
   let nextActionBtn = '';
   const idArg = typeof id==='string' ? `'${id}'` : id;
-  const nxt = getNextStageId(id);
   if(pass && nxt){
     const nextUnlocked = S.stages[nxt]&&S.stages[nxt].unlocked;
     nextActionBtn = nextUnlocked
@@ -5070,8 +5094,6 @@ function selectFbStar(n){
   updateFbStarLabel();
 }
 
-/* ---------- คิวส่งซ้ำ: เก็บชั่วคราวเฉพาะรายการที่ยังส่งไม่สำเร็จ แล้วลบทิ้งทันทีเมื่อ Sheet ตอบรับ ---------- */
-const FB_QUEUE_KEY='wk_fb_queue_nopin_v1';
 function getStarRatingLabel(v){
   if(!v || v<1){
     return L('👆 กรุณาแตะเลือก 1–5 ดาวก่อนไปต่อ','👆 Please tap 1–5 stars to continue');

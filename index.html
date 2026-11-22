@@ -1255,7 +1255,6 @@ body.in-stage[data-zone="5"]{background:linear-gradient(180deg,#f3e2a8 0%,#f5e8c
 .waka-in{display:inline-block;width:38px;height:auto;vertical-align:middle;margin:-6px 6px -4px 0;filter:drop-shadow(0 2px 4px rgba(0,25,45,.2));pointer-events:none}
 @keyframes wakaFloat{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-6px) rotate(1.5deg)}}
 @keyframes wakaShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px) rotate(-3deg)}40%{transform:translateX(8px) rotate(3deg)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
-.ui-ic{width:17px;height:17px;flex-shrink:0;display:inline-block;vertical-align:middle}
 body.anim-paused #bubbles span,body.in-stage #bubbles span,
 #viewStart:not(.active) #startSwim .rays,#viewStart:not(.active) #startSwim .sbub,#viewStart:not(.active) #startSwim .swm,
 body.anim-paused #startSwim .rays,body.anim-paused #startSwim .sbub,body.anim-paused #startSwim .swm{animation-play-state:paused!important}
@@ -1328,7 +1327,7 @@ body.anim-paused #startSwim .rays,body.anim-paused #startSwim .sbub,body.anim-pa
   <div class="stages" id="stageList"></div>
   <div class="card">
     <button class="btn gold full" id="certBtn" onclick="go('viewCert')">🏅 รับเกียรติบัตร (เมื่อผ่านครบ 7 ด่าน)</button>
-    <button class="btn ghost full" id="resetBtn" style="margin-top:10px" onclick="resetAll()"><svg class="ui-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg><span class="btn-txt">ล้างข้อมูลเริ่มใหม่</span></button>
+    <button class="btn ghost full" id="resetBtn" style="margin-top:10px" onclick="resetAll()">🔄 ล้างข้อมูลเริ่มใหม่</button>
   </div>
 </section>
 
@@ -1371,13 +1370,13 @@ body.anim-paused #startSwim .rays,body.anim-paused #startSwim .sbub,body.anim-pa
     <h2 id="certHeading" style="margin-top:0;user-select:none;-webkit-user-select:none">🏅 เกียรติบัตรนักสำรวจโลกใต้น้ำ</h2>
     <label id="certNameLbl" style="font-weight:600">ชื่อ-นามสกุล</label><input id="certName" placeholder="พิมพ์ชื่อ-นามสกุลของคุณ" oninput="if(window.S){S.name=this.value.trim();save();}drawCertificate()">
     <label id="certSchoolLbl" style="font-weight:600">โรงเรียน / หน่วยงาน</label><input id="certSchool" placeholder="พิมพ์ชื่อโรงเรียน (ไม่บังคับ)" oninput="if(window.S){S.school=this.value.trim();save();}drawCertificate()">
-    <button class="btn full" id="certUpdateBtn" onclick="drawCertificate()"><svg class="ui-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg><span class="btn-txt">อัปเดตชื่อบนเกียรติบัตร</span></button>
+    <button class="btn full" id="certUpdateBtn" onclick="drawCertificate()">✨ อัปเดตชื่อบนเกียรติบัตร</button>
     <div class="cert-preview-wrap">
       <canvas id="certCanvas" width="1600" height="1131"></canvas>
       <img id="certPreviewImg" alt="เกียรติบัตรนักสำรวจโลกใต้น้ำ">
     </div>
     <div class="cert-save-tip" id="certSaveTip">📲 กดปุ่มด้านล่างเพื่อบันทึกเข้ามือถือทันที หรือ <b>แตะค้างที่รูปเกียรติบัตร</b> แล้วเลือก <b>"บันทึกรูปภาพ (Save to Photos)"</b></div>
-    <button class="btn gold full" id="certDlBtn" style="margin-top:10px" onclick="downloadCertificatePNG()"><svg class="ui-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span class="btn-txt">บันทึกเกียรติบัตรเข้าโทรศัพท์</span></button>
+    <button class="btn gold full" id="certDlBtn" style="margin-top:10px" onclick="downloadCertificatePNG()">⬇️ บันทึกเกียรติบัตรเข้าโทรศัพท์</button>
     <a class="btn ok full" id="googleFormLinkBtn" href="https://docs.google.com/forms/d/e/1FAIpQLScxEZFPnf8WqMufdo02KUPU1KGzWLXPEEcqFM0GrkAUAtSVGg/viewform?usp=header" target="_blank" rel="noopener noreferrer" onclick="sfx.tap()" style="display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;margin-top:10px;text-align:center">
       📋 แบบประเมินความพึงพอใจ (Google Form) ↗
     </a>
@@ -1430,7 +1429,7 @@ body.anim-paused #startSwim .rays,body.anim-paused #startSwim .sbub,body.anim-pa
   <p id="rstDesc" style="color:var(--muted);margin:0 0 14px;font-size:.95rem">ต้องการล้างตราประทับและคะแนนทั้งหมด แล้วเริ่มผจญภัยใหม่ตั้งแต่ด่านที่ 1 ใช่ไหม?</p>
   <div class="row">
     <button class="btn ghost" id="rstCancelBtn" onclick="closeResetModal()">ยกเลิก</button>
-    <button class="btn bad" id="rstConfirmBtn" onclick="confirmResetAll()"><svg class="ui-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg><span class="btn-txt">ล้างข้อมูลเริ่มใหม่</span></button>
+    <button class="btn bad" id="rstConfirmBtn" onclick="confirmResetAll()">🗑️ ล้างข้อมูลเริ่มใหม่</button>
   </div>
 </div></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -2078,7 +2077,6 @@ function applyStaticLang(){
     }
   });
   const setTxt=(id,th,en)=>{const el=document.getElementById(id);if(el)el.textContent=L(th,en)};
-  const setBtnTxt=(id,th,en)=>{const el=document.getElementById(id);if(!el)return;const sp=el.querySelector('.btn-txt');if(sp)sp.textContent=L(th,en);else el.textContent=L(th,en);};
   const setHtml=(id,th,en)=>{const el=document.getElementById(id);if(el)el.innerHTML=L(th,en)};
 
   setHtml('stMainTitle','<span style="display:block;letter-spacing:1px;font-size:0.86em">WAGHOR AQUA QUEST</span><span style="display:block;font-size:0.56em;font-weight:600;margin-top:2px;letter-spacing:0.5px">ภารกิจพิชิตโลกใต้น้ำ</span>','<span style="display:block;letter-spacing:1px;font-size:0.86em">WAGHOR AQUA QUEST</span><span style="display:block;font-size:0.56em;font-weight:600;margin-top:2px;letter-spacing:0.5px">Underwater Adventure</span>');
@@ -2086,7 +2084,7 @@ function applyStaticLang(){
   setHtml('mapMainTitle','WAGHOR AQUA QUEST<br><span style="font-size:0.82em;font-weight:600">ภารกิจพิชิตโลกใต้น้ำ</span>','WAGHOR AQUA QUEST<br><span style="font-size:0.82em;font-weight:600">Underwater Adventure</span>');
   setTxt('mapSubTitle','พิพิธภัณฑ์สัตว์น้ำหว้ากอ','Waghor Aquarium');
   setTxt('certBtn','🏅 รับเกียรติบัตร (เมื่อผ่านครบ 7 ด่าน)','🏅 Claim Explorer Certificate (Pass all 7 stages)');
-  setBtnTxt('resetBtn','ล้างข้อมูลเริ่มใหม่','Reset All Progress');
+  setTxt('resetBtn','🔄 ล้างข้อมูลเริ่มใหม่','🔄 Reset All Progress');
 
   setTxt('certHeading','🏅 เกียรติบัตรนักสำรวจโลกใต้น้ำ','🏅 Underwater Explorer Certificate');
   setTxt('certNameLbl','ชื่อ-นามสกุล','Full Name');
@@ -2095,9 +2093,9 @@ function applyStaticLang(){
   const cs=document.getElementById('certSchool');if(cs)cs.placeholder=L('พิมพ์ชื่อโรงเรียน (ไม่บังคับ)','School or organization (optional)');
   setHtml('startWarnBanner','<svg class="nrw-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span><span class="nrw-t">บันทึกความคืบหน้าอัตโนมัติ</span><span class="nrw-s">หากรีเฟรชกลางด่านจะต้องเริ่มเล่นด่านนั้นใหม่</span></span>','<svg class="nrw-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span><span class="nrw-t">Progress is auto-saved (expires after 2 hours)</span><span class="nrw-s">Refreshing mid-stage restarts only that stage · Tap Reset for a new player</span></span>');
   setHtml('mapWarnBanner','<svg class="nrw-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span><span class="nrw-t">บันทึกความคืบหน้าอัตโนมัติ</span><span class="nrw-s">หากรีเฟรชกลางด่านจะต้องเริ่มเล่นด่านนั้นใหม่</span></span>','<svg class="nrw-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span><span class="nrw-t">Auto-saves your progress (valid for 2 hours)</span><span class="nrw-s">Refreshing mid-stage restarts that stage · Tap "Reset All Progress" for a new player</span></span>');
-  setBtnTxt('certUpdateBtn','อัปเดตชื่อบนเกียรติบัตร','Update Name on Certificate');
+  setTxt('certUpdateBtn','✨ อัปเดตชื่อบนเกียรติบัตร','✨ Update Name on Certificate');
   setHtml('certSaveTip','📲 กดปุ่มด้านล่างเพื่อบันทึกเข้ามือถือทันที หรือ <b>แตะค้างที่รูปเกียรติบัตร</b> แล้วเลือก <b>"บันทึกรูปภาพ (Save to Photos)"</b>','📲 Tap the button below to save directly to your phone, or <b>long-press the certificate image</b> and choose <b>"Save to Photos"</b>');
-  setBtnTxt('certDlBtn','บันทึกเกียรติบัตรเข้าโทรศัพท์','Save Certificate to Phone');
+  setTxt('certDlBtn','⬇️ บันทึกเกียรติบัตรเข้าโทรศัพท์','⬇️ Save Certificate to Phone');
   setTxt('certBackBtn','← กลับแผนที่','← Back to Map');
 
   setTxt('fbHeading','⭐ ขอความกรุณาให้คะแนนความพึงพอใจก่อนรับเกียรติบัตร','⭐ Rate Your Experience Before Claiming Certificate');
@@ -2133,7 +2131,7 @@ function applyStaticLang(){
   setTxt('rstTitle','ล้างความคืบหน้าทั้งหมด?','Reset All Progress?');
   setTxt('rstDesc','ต้องการล้างตราประทับและคะแนนทั้งหมด แล้วเริ่มผจญภัยใหม่ตั้งแต่ด่านที่ 1 ใช่ไหม?','Clear all collected stamps and scores and start over from Stage 1?');
   setTxt('rstCancelBtn','ยกเลิก','Cancel');
-  setBtnTxt('rstConfirmBtn','ล้างข้อมูลเริ่มใหม่','Reset All');
+  setTxt('rstConfirmBtn','🗑️ ล้างข้อมูลเริ่มใหม่','🗑️ Reset All');
 
   syncSndNoteLang();
   syncOfflineBanner();

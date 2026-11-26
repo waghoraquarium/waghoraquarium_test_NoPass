@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<style>html,body{touch-action:pan-x pan-y}.pdpa-note{background:#f0f8fb;border:1px solid #c5d9e4;border-left:3.5px solid #2d7aa6;border-radius:10px;padding:8px 11px;margin:4px 0 12px;font-size:.78rem;line-height:1.45;color:var(--muted);text-align:left}
+<meta id="themeColorMeta" name="theme-color" content="#3f8db5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>html{background-color:#3f8db5}html,body{touch-action:pan-x pan-y}.pdpa-note{background:#f0f8fb;border:1px solid #c5d9e4;border-left:3.5px solid #2d7aa6;border-radius:10px;padding:8px 11px;margin:4px 0 12px;font-size:.78rem;line-height:1.45;color:var(--muted);text-align:left}
 
 /* ===== UI Page Transition & Staggered Float-Up Animations ===== */
 @keyframes uiViewFade{from{opacity:0}to{opacity:1}}
@@ -502,7 +505,7 @@ header.top{color:var(--deep)}header.top p{opacity:.7}
 #startInfo{font-size:clamp(1rem,3.6vw,1.2rem);color:var(--muted)}
 /* ===== โทนเข้มขึ้น (อ่านง่าย สบายตา) — ทับธีมพาสเทลด้านบน ===== */
 :root{--deep:#1d3a52;--ocean:#2d6d93;--sea:#2d7aa6;--aqua:#7fc0d8;--foam:#e3eff5;--sand:#f3e7cc;--coral:#e58a7a;--gold:#f0bf4a;--ok:#237349;--bad:#d1566a;--txt:#1f3547;--muted:#435869}
-body{background:linear-gradient(180deg,#cfe2eb 0%,#d9d8ea 60%,#ecd6de 100%) fixed;color:var(--txt)}
+body{background-color:#cfe2eb;background:linear-gradient(180deg,#cfe2eb 0%,#d9d8ea 60%,#ecd6de 100%) fixed;color:var(--txt)}
 body::after{content:"";position:fixed;left:0;right:0;bottom:0;height:24vh;z-index:0;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320' preserveAspectRatio='none'%3E%3Cpath d='M0 190C240 120 480 260 720 200C960 140 1200 240 1440 170L1440 320L0 320Z' fill='%232d7aa6' fill-opacity='.20'/%3E%3Cpath d='M0 240C260 190 500 290 760 240C1020 190 1220 270 1440 225L1440 320L0 320Z' fill='%231d5a84' fill-opacity='.24'/%3E%3C/svg%3E") bottom/100% 100% no-repeat}
 .bubbles span{background:rgba(45,109,147,.18)}
 header.top{color:var(--deep)}header.top p{opacity:.85}
@@ -2171,10 +2174,17 @@ function syncStageLangVisibility(){
   document.body.classList.toggle('is-paused', isPaused);
 }
 
+function syncThemeColor(viewId){
+  const col=(viewId==='viewStart')?'#3f8db5':'#cfe2eb';
+  document.documentElement.style.backgroundColor=col;
+  const m=document.getElementById('themeColorMeta');
+  if(m && m.getAttribute('content')!==col) m.setAttribute('content',col);
+}
 function go(id){
   if(id==='viewCert' && !S.rated){
     id='viewRate';
   }
+  syncThemeColor(id);
   const pm=document.getElementById('pauseModal');
   if(pm) pm.classList.remove('show');
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));

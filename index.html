@@ -802,7 +802,9 @@ textarea.fb-input:focus{border-color:var(--aqua)}textarea.fb-input:focus-visible
 }
 .lang-btn .fl{width:20px;height:14px;border-radius:3px}
 body.in-stage:not(.is-paused) #langBtn{display:none!important}
-body.in-stage .hud, body.in-stage #s45Top{padding-right:48px}
+body.in-stage .hud, body.in-stage #s45Top{padding-right:54px;width:100%;max-width:100%;box-sizing:border-box}
+body.in-stage .hud-right{flex-shrink:0;gap:5px}
+@media (max-width:430px){body.in-stage #hudPauseBtn,body.in-stage #hudExitBtn{padding:5px 9px!important;font-size:.8rem!important;min-height:36px!important}body.in-stage #s45Rd{padding:5px 9px;font-size:.8rem}}
 body.in-stage #s45App{padding-top:10px}
 .pause-lang-box{margin:0 auto 12px;display:flex;align-items:center;justify-content:center;gap:8px;background:#f0f8fb;border:1.5px solid #c5d9e4;border-radius:16px;padding:8px 12px;font-family:'Prompt',sans-serif;font-size:.88rem;font-weight:700;color:var(--deep)}
 .pause-lang-box .lang-btn{position:static;height:36px;box-shadow:0 2px 6px rgba(0,30,60,.15);border:1px solid #c5d9e4}
@@ -855,10 +857,10 @@ header.top{padding:26px 0 4px}
 }
 
 /* ===== ด่าน 1.4.5: วิวัฒนาการไต่ห่วงโซ่ (Food Chain Evolution) ===== */
-#s45App{max-width:520px;margin:0 auto;padding:42px 4px 6px;display:flex;flex-direction:column;justify-content:space-between;gap:6px;height:calc(100dvh - 28px);max-height:calc(100dvh - 28px);overflow:hidden;box-sizing:border-box;user-select:none;-webkit-user-select:none;position:relative}
+#s45App{width:100%;max-width:min(100%,520px);min-width:0;margin:0 auto;padding:42px 4px 6px;display:flex;flex-direction:column;justify-content:space-between;gap:6px;height:calc(100dvh - 28px);max-height:calc(100dvh - 28px);overflow:hidden;box-sizing:border-box;user-select:none;-webkit-user-select:none;position:relative}
 #s45Top{display:flex;align-items:center;justify-content:space-between;gap:6px;position:relative;z-index:25;flex-shrink:0;min-height:38px}
 #s45Rd{font-family:Prompt,Sarabun,Thonburi,Tahoma,sans-serif;font-weight:800;font-size:.86rem;background:#fff;border:1px solid #c5d9e4;border-radius:999px;padding:5px 12px;color:var(--deep);box-shadow:0 2px 8px rgba(0,0,0,.12);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
-#s45Lad{display:flex;align-items:center;justify-content:center;gap:4px;background:rgba(255,255,255,.94);border-radius:16px;padding:5px 8px;box-shadow:0 2px 8px rgba(0,0,0,.15);flex-shrink:0;position:relative;z-index:20}
+#s45Lad{display:flex;align-items:center;justify-content:center;gap:4px;background:rgba(255,255,255,.94);border-radius:16px;padding:5px 8px;box-shadow:0 2px 8px rgba(0,0,0,.15);flex-shrink:0;position:relative;z-index:20;width:100%;max-width:100%;box-sizing:border-box;overflow:hidden}
 .s45-chip{width:42px;height:42px;border-radius:12px;background:#e6f1f7;display:flex;align-items:center;justify-content:center;opacity:.45;position:relative;flex-shrink:0}
 .s45-chip img{max-width:34px;max-height:34px;display:block}
 .s45-chip.on{opacity:1;background:#fff2c9;box-shadow:0 0 0 3px #f4b942;transform:scale(1.08)}
@@ -3606,7 +3608,8 @@ function game4(id){
         const ladEl=document.getElementById('s45Lad');
         const barEl=document.getElementById('s45Bar');
         if(!wrap||!arena||!appEl)return;
-        const W=Math.max(260,Math.min((wrap.clientWidth||innerWidth-24),500));
+        const maxVisW=Math.max(260,Math.min(wrap.clientWidth||innerWidth-32, innerWidth-32, 500));
+        const W=maxVisW;
         const usedH=(topEl?topEl.offsetHeight:40)+(ladEl?ladEl.offsetHeight:54)+(barEl?barEl.offsetHeight:10)+(padWrap?padWrap.offsetHeight:114)+78;
         const availH=Math.max(170,Math.min(wrap.clientHeight||(innerHeight-usedH), innerHeight-usedH, 480));
         const H=Math.max(170,availH);
